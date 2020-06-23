@@ -17,5 +17,12 @@ function tipAmount(bill, service)
     return tip;
 }
 
-result = tipAmount(200, 'fair');
+function totalAmt(bill, service)
+{
+    tip = tipAmount(bill,service);
+    total = bill + tip;
+    return total;
+}
+
+result = totalAmt(210, 'fair');
 console.log(result);
