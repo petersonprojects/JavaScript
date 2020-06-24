@@ -5,10 +5,13 @@
     display:block;
     display:flex;
     justify-content: space-around;
-    list-style: none;
     align-items:center;
     padding-right: 200px;
     padding-left: 10px;
+}
+
+ul{
+    list-style: none;
 }
 
 #hoc{
@@ -20,8 +23,22 @@
     font-weight: bold;
 }
 
+#title{
+    font-size:50px;
+    color:gray;
+}
+
+#content{
+    font-size:18px;
+}
+
+#bloo{
+    font-size: 40px;
+    color:blue;
+}
+
 .subHeader{
-    background-color: grey;
+    background-color: lightgray;
     color:rgb(24, 22, 22)
 }
 
