@@ -4,8 +4,6 @@ function makeLong(string)
 
     for(var x = 0; x<splitUp.length;x++)
     {
-        if(splitUp[0] != 'e' || splitUp[splitUp.length-1] != 'e')
-        {
             if(splitUp[x] == 'e' || splitUp[x] == 'E')
             {
                 splitUp[x] = 'eeee';
@@ -14,11 +12,9 @@ function makeLong(string)
             {
                 splitUp[x] = 'oooo';
             }
-        }
-
     }
     var newArray = splitUp.join('');
     return newArray;
 }
 
-console.log(makeLong("Cheech and Chong"));
+console.log(makeLong("Cheese"));

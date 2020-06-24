@@ -7,4 +7,15 @@ function printNums(num1,num2)
     }
 }
 
-printNums(0,42);
+function printNums2(num1,num2)
+{
+    var count = num1;
+    while(count <= num2)
+    {
+        console.log(count);
+        count++;
+    }
+}
+
+printNums2(0,42);
+
