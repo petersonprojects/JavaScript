@@ -57,7 +57,7 @@ function createSubHeader()
     ul.appendChild(li2);
 }
 
-function createThird()
+function createThird(title,comments,likes)
 {
     var body = document.getElementsByTagName('body');
     var div = document.createElement('div');
@@ -70,8 +70,23 @@ function createThird()
     div[0].appendChild(col);
 
     var col = document.getElementsByClassName('offset-1 col-10 offset-1');
+    var div = document.createElement('div');
+    div.setAttribute('id', 'bloo');
+    div.textContent = title;
+    col[0].appendChild(div);
+
+    var div = document.createElement('div');
+    div.setAttribute('id', 'content');
+    div.textContent = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, suscipit excepturi provident maxime ad nulla consequuntur porro dolorem id illum qui dolorum temporibus rem? Odit, vero? Quasi officiis doloremque a!";
+    col[0].appendChild(div);
+
+    var div = document.createElement('div');
+    div.setAttribute('class', 'orange');
+    div.innerHTML = "<span>" +comments +" comments </span><span>" +likes +" likes</span>";
+    col[0].appendChild(div);
 }
 
 createHeader();
 createSubHeader();
-createThird();
+createThird("Hello Watchkit", 12, 124);
+createThird("Introduction to Swift", 15, 45);
