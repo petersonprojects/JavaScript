@@ -1,6 +1,23 @@
 .header{
     background-color: blue;
     color: white;
+    font-size: 30px;
+    display:block;
+    display:flex;
+    justify-content: space-around;
+    list-style: none;
+    align-items:center;
+    padding-right: 200px;
+    padding-left: 10px;
+}
+
+#hoc{
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#home{
+    font-weight: bold;
 }
 
 .subHeader{
@@ -11,4 +28,8 @@
 .orange{
     background-color: orange;
     color: white;
+}
+
+.h3{
+    color:lightskyblue;
 }
