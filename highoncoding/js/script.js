@@ -45,7 +45,7 @@ function createSubHeader()
     var col = document.getElementsByClassName('offset-1 col-10 offset-1');
     var ul = document.createElement('ul');
     ul.setAttribute('class', 'subHeader');
-    col[0].appendChild(ul);
+    col[0].appendChild(ul)
 
     var li1 = document.createElement('li');
     li1.setAttribute('id','title');
