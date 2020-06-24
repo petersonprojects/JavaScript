@@ -37,6 +37,10 @@ ul{
     color:blue;
 }
 
+span{
+    margin-left:25px;
+}
+
 .subHeader{
     background-color: lightgray;
     color:rgb(24, 22, 22)
@@ -45,6 +49,7 @@ ul{
 .orange{
     background-color: orange;
     color: white;
+    font-size:20px;
 }
 
 .h3{

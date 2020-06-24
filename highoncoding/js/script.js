@@ -34,10 +34,10 @@ function createSubHeader()
 {
     var body = document.getElementsByTagName('body');
     var div = document.createElement('div');
-    div.setAttribute('class', 'row');
+    div.setAttribute('class', 'row mt-5');
     body[0].appendChild(div);
 
-    var div = document.getElementsByClassName('row');
+    var div = document.getElementsByClassName('row mt-5');
     var col = document.createElement('div');
     col.setAttribute('class', 'offset-1 col-10 offset-1');
     div[0].appendChild(col);
@@ -59,7 +59,17 @@ function createSubHeader()
 
 function createThird()
 {
-    
+    var body = document.getElementsByTagName('body');
+    var div = document.createElement('div');
+    div.setAttribute('class', 'row mt-5');
+    body[0].appendChild(div);
+
+    var div = document.getElementsByClassName('row mt-5');
+    var col = document.createElement('div');
+    col.setAttribute('class', 'offset-1 col-10 offset-1');
+    div[0].appendChild(col);
+
+    var col = document.getElementsByClassName('offset-1 col-10 offset-1');
 }
 
 createHeader();
