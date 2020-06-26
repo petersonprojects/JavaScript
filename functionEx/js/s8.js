@@ -7,18 +7,20 @@
 
 //bonus for each
 
-function fun(name){
-    console.log(`Hello ${name}`); 
-}
+var fun = name=>console.log(`Hello ${name}`);
 
 var arr = [{name: 'bob'},{name:'alice'},{name:'joe'}];
 
-function forEach(arr, fun)
+function map(arr,fun)
 {
-    for(var i = 0;i<arr.length;i++)
+    var newArr = [];
+    for(var x = 0;x < arr.length;x++)
     {
-        fun(arr[i].name);
+        var result = fun(arr[x].name);
+        newArr.push(result);
     }
+    return newArr;
 }
 
-forEach(arr,fun);
+var newArr = map(arr,fun);
+console.log(newArr);
