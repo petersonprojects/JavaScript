@@ -1,7 +1,7 @@
+var body = document.querySelector('body');
 function createHeader()
 {
     var body = document.getElementsByTagName('body');
-
     var div = document.createElement('div');
     div.setAttribute('class', 'row');
     body[0].appendChild(div);
@@ -19,7 +19,6 @@ function createHeader()
     var li1 = document.createElement('li');
     li1.setAttribute('id','hoc');
     li1.textContent = "HighOnCoding";
-    ul.appendChild(li1);
     var li2 = document.createElement('li');
     li2.setAttribute('id','home');
     li2.textContent  = "Home";
@@ -86,7 +85,17 @@ function createThird(title,comments,likes)
     col[0].appendChild(div);
 }
 
+function createNode(type, parent, content, classStyle)
+{
+    var node = document.createElement(type);
+    node.setAttribute('class', classStyle);
+    node.textContent = content;
+    parent.appendChild(node);
+}
+
 createHeader();
 createSubHeader();
 createThird("Hello Watchkit", 12, 124);
 createThird("Introduction to Swift", 15, 45);
+
+createNode("div",body,"hello world","orange");
