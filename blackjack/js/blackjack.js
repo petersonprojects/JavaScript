@@ -145,6 +145,7 @@ var img1 = document.createElement('img');
 var img2 = document.createElement('img');
 var img3 = document.createElement('img');
 var img4 = document.createElement('img');
+
 document.getElementById("deal-button").addEventListener("click", function(){
     //dealer hand
 
@@ -173,6 +174,9 @@ document.getElementById("deal-button").addEventListener("click", function(){
 
 });
 
+
+
+
 // var temp = newDeck[0].value;
 
 document.getElementById("hit-button").addEventListener("click", function(){
@@ -181,23 +185,37 @@ document.getElementById("hit-button").addEventListener("click", function(){
 
     playersHand.push(newDeck.shift())
     //for loop for adding hand
-    var handTotal = 0;
-    playersHand.map(function(handObj){
+
+
+
+    var phandArray = playersHand.map(function(handObj){
         var temp = handObj.value;
         if(temp >= 10)
         {
             temp = 10;
         }
-        handTotal += temp;
-    });
+        return temp;
+});
 
-    if(handTotal > 21)
+        var phandsum = 0;
+        for(var i=0;i<phandArray.length;i++)
+        {
+            phandsum += pHandArray[i];
+        }
+
+        if(phandsum >= 17)
+        {
+            done = true;
+            console.log("dealer done");
+        }
+
+    if(phandsum > 21)
     {
         console.log("You busted!");
         //restarting logic
     }
 
-    console.log(handTotal);
+    console.log(`Players hand: ${phandsum}`);
 
     imgUrls.shift();
     //write a check to see what the total value of the players hand is and compare them
@@ -209,12 +227,50 @@ document.getElementById("hit-button").addEventListener("click", function(){
 var testing = 1;
 
 document.getElementById("stand-button").addEventListener("click", function(){
-    var stand = document.createElement('img');
-    stand.src=imgUrls[0];
-    imgUrls.shift();
-    dealersHand.push(newDeck.shift())
+    // unhides the dealers card
     dh.appendChild(temp);
-    //then remove card.back
+    var done = false;
+    while(done == false)
+    {
+
+        var dhandTotal = 0;
+
+        var stand = document.createElement('img');
+        stand.src=imgUrls[0];
+        stand.className="ml-3";
+        imgUrls.shift();
+        dealersHand.push(newDeck.shift());
+                //not sure if this goes here
+        dh.appendChild(stand);
+
+        var dHandArray = dealersHand.map(function(handObj){
+
+            var temp = handObj.value;
+            console.log(`temp: ${temp}]`);
+            if(temp >= 10)
+            {
+                temp = 10;
+            }
+            return temp;
+        });
+
+       var handsum = 0;
+        for(var i=0;i<dHandArray.length;i++)
+        {
+            handsum += dHandArray[i];
+        }
+
+        if(handsum >= 17)
+        {
+            done = true;
+            console.log("dealer done");
+        }
+
+              //write a check to see what the total value of the dealers hand is and compare them
+        console.log(`Dealers hand: ${handsum}`);
+    }
+
+    //then unhide card
     //should only happen once
     if(testing == 1)
     {
@@ -222,8 +278,5 @@ document.getElementById("stand-button").addEventListener("click", function(){
         testing++;
     }
 
-      //write a check to see what the total value of the dealers hand is and compare them
-    console.log(dealersHand);
-    stand.className="ml-3"
-    dh.appendChild(stand);
+
 });
