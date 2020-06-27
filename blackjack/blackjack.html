@@ -9,21 +9,20 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
     <div id="table">
 
         <div id="messages"></div>
 
-                <button type="button" class="btn btn-warning ml-5 mt-2 mb-1">Dealer: </button>
-
-                <label id="dealer-points" class="points"></label>
+                <button type="button" id="dealer-points"class="btn btn-warning ml-5 mt-2 mb-1">Dealer: </button>
 
                 <div id="dealer-hand" class="hand ml-5">
 
                 </div>
 
-                <button type="button" class="btn btn-warning ml-5 mt-2 mb-1">Player: </button>   
+                <button type="button" id="player-points" class="btn btn-warning ml-5 mt-2 mb-1">Player: </button>   
 
                 <div id="player-hand" class="hand ml-5">
 
@@ -36,7 +35,7 @@
                 <button  type="button" id="hit-button" class="ml-2 btn btn-primary">Hit</button>
                 
                 <button  type="button" id="stand-button" class="ml-2  btn btn-success">Stand</button>
-        
+                <button type="button" id="restart-button" class="ml-2 btn btn-warning">Restart</button>
             </div>
         
         <script src="js/blackjack.js"></script>
