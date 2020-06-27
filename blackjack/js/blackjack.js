@@ -32,6 +32,8 @@
 
 // console.log(deck);
 
+//gave up and decided to just manually create a deck of cards
+
 var deck = [
     {value:1,suit:'hearts'},
     {value:2,suit:'hearts'},
@@ -125,23 +127,17 @@ var imgUrls = newDeck.map(function(deckObj){
 
 var playersHand = [newDeck[0],newDeck[2]];
 var dealersHand = [newDeck[1],newDeck[3]];
+
 newDeck.shift();
 newDeck.shift();
 newDeck.shift();
 newDeck.shift();
 
+//to start, it needs to hide the card and then
+// it needs to unhide the dealer first card once the player stands
 
-//when the hands are dealt, pop off 4 cards from the array
-
-
-//"listens" for click, and then executes
-// the code inside the code block.  
-//Note that the listenter takes as arguments, the event,
-// and anfn.
 var dh = document.getElementById("dealer-hand");
 var ph = document.getElementById("player-hand");
-
-
 
 document.getElementById("deal-button").addEventListener("click", function(){
     //dealer hand
@@ -172,7 +168,6 @@ document.getElementById("deal-button").addEventListener("click", function(){
 });
 
 document.getElementById("hit-button").addEventListener("click", function(){
-    //write "hit" logic here
     var hit = document.createElement('img');
     hit.src=imgUrls[0];
     playersHand.push(newDeck.shift())
@@ -184,7 +179,6 @@ document.getElementById("hit-button").addEventListener("click", function(){
 });
 
 document.getElementById("stand-button").addEventListener("click", function(){
-    //write "stand" logic here
     var stand = document.createElement('img');
     stand.src=imgUrls[0];
     dealersHand.push(newDeck.shift())
