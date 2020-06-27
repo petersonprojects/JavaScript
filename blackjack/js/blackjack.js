@@ -128,6 +128,9 @@ var imgUrls = newDeck.map(function(deckObj){
 var playersHand = [newDeck[0],newDeck[2]];
 var dealersHand = [newDeck[1],newDeck[3]];
 
+var temp = document.createElement('img');
+temp.src = imgUrls[1];
+
 newDeck.shift();
 newDeck.shift();
 newDeck.shift();
@@ -138,24 +141,27 @@ newDeck.shift();
 
 var dh = document.getElementById("dealer-hand");
 var ph = document.getElementById("player-hand");
-
+var img1 = document.createElement('img');
+var img2 = document.createElement('img');
+var img3 = document.createElement('img');
+var img4 = document.createElement('img');
 document.getElementById("deal-button").addEventListener("click", function(){
     //dealer hand
-    var img1 = document.createElement('img');
-    img1.src=imgUrls[1];
+
+    img1.src="JPEG/purple_back.jpg"
     dh.appendChild(img1);
 
-    var img2 = document.createElement('img');
+
     img2.src=imgUrls[3];
     img2.className="ml-3"
     dh.appendChild(img2);
 
     //player hand
-    var img3 = document.createElement('img');
+
     img3.src=imgUrls[0];
     ph.appendChild(img3);
 
-    var img4 = document.createElement('img');
+
     img4.src=imgUrls[2];
     img4.className="ml-3"
     ph.appendChild(img4);
@@ -200,11 +206,21 @@ document.getElementById("hit-button").addEventListener("click", function(){
     ph.appendChild(hit);
 });
 
+var testing = 1;
+
 document.getElementById("stand-button").addEventListener("click", function(){
     var stand = document.createElement('img');
     stand.src=imgUrls[0];
     imgUrls.shift();
     dealersHand.push(newDeck.shift())
+    dh.appendChild(temp);
+    //then remove card.back
+    //should only happen once
+    if(testing == 1)
+    {
+        dh.removeChild(img1);
+        testing++;
+    }
 
       //write a check to see what the total value of the dealers hand is and compare them
     console.log(dealersHand);
