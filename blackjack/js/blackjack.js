@@ -99,7 +99,9 @@ function shuffleDeck(deck)
     return deck;
 }
 
-var imgUrls = deck.map(function(deckObj){
+var newDeck = shuffleDeck(deck);
+
+var imgUrls = newDeck.map(function(deckObj){
     var temp = deckObj.value
     if(temp == 1)
     {
@@ -120,9 +122,6 @@ var imgUrls = deck.map(function(deckObj){
 
     return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
 })
-
-var newDeck = shuffleDeck(deck);
-var newUrls = shuffleDeck(imgUrls);
 
 var playersHand = [newDeck[0],newDeck[2]];
 var dealersHand = [newDeck[1],newDeck[3]];
@@ -148,21 +147,21 @@ document.getElementById("deal-button").addEventListener("click", function(){
     //write dealer logic here
     //retrieve dealer hand
     var img1 = document.createElement('img');
-    img1.src=imgUrls[0];
+    img1.src=imgUrls[1];
     dh.appendChild(img1);
 
     var img2 = document.createElement('img');
-    img2.src=imgUrls[2];
+    img2.src=imgUrls[3];
     img2.className="ml-3"
     dh.appendChild(img2);
     //player hand
 
     var img3 = document.createElement('img');
-    img3.src=imgUrls[1];
+    img3.src=imgUrls[0];
     ph.appendChild(img3);
 
     var img4 = document.createElement('img');
-    img4.src=imgUrls[3];
+    img4.src=imgUrls[2];
     img4.className="ml-3"
     ph.appendChild(img4);
 
@@ -177,8 +176,10 @@ document.getElementById("hit-button").addEventListener("click", function(){
     //write "hit" logic here
     var hit = document.createElement('img');
     hit.src=imgUrls[0];
-    newDeck.shift();
-    newUrls.shift()
+    playersHand.push(newDeck.shift())
+    console.log(playersHand);
+    imgUrls.shift();
+    //write a check to see what the total value of the players hands are and compare them
     hit.className="ml-3"
     ph.appendChild(hit);
 });
@@ -187,8 +188,8 @@ document.getElementById("stand-button").addEventListener("click", function(){
     //write "stand" logic here
     var stand = document.createElement('img');
     stand.src=imgUrls[0];
-    newDeck.shift();
-    newUrls.shift();
+    dealersHand.push(newDeck.shift())
+    imgUrls.shift();
     stand.className="ml-3"
     dh.appendChild(stand);
 });
