@@ -121,9 +121,8 @@ var imgUrls = deck.map(function(deckObj){
     return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
 })
 
-console.log(imgUrls);
 var newDeck = shuffleDeck(deck);
-
+var newUrls = shuffleDeck(imgUrls);
 
 var playersHand = [newDeck[0],newDeck[2]];
 var dealersHand = [newDeck[1],newDeck[3]];
@@ -131,6 +130,7 @@ newDeck.shift();
 newDeck.shift();
 newDeck.shift();
 newDeck.shift();
+
 
 //when the hands are dealt, pop off 4 cards from the array
 
@@ -155,9 +155,7 @@ document.getElementById("deal-button").addEventListener("click", function(){
     img2.src=imgUrls[2];
     img2.className="ml-3"
     dh.appendChild(img2);
-
     //player hand
-
 
     var img3 = document.createElement('img');
     img3.src=imgUrls[1];
@@ -168,12 +166,19 @@ document.getElementById("deal-button").addEventListener("click", function(){
     img4.className="ml-3"
     ph.appendChild(img4);
 
+    imgUrls.shift();
+    imgUrls.shift();
+    imgUrls.shift();
+    imgUrls.shift();
+
 });
 
 document.getElementById("hit-button").addEventListener("click", function(){
     //write "hit" logic here
     var hit = document.createElement('img');
-    hit.src="JPEG/5S.jpg"
+    hit.src=imgUrls[0];
+    newDeck.shift();
+    newUrls.shift()
     hit.className="ml-3"
     ph.appendChild(hit);
 });
