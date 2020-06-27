@@ -144,8 +144,7 @@ var ph = document.getElementById("player-hand");
 
 
 document.getElementById("deal-button").addEventListener("click", function(){
-    //write dealer logic here
-    //retrieve dealer hand
+    //dealer hand
     var img1 = document.createElement('img');
     img1.src=imgUrls[1];
     dh.appendChild(img1);
@@ -154,8 +153,8 @@ document.getElementById("deal-button").addEventListener("click", function(){
     img2.src=imgUrls[3];
     img2.className="ml-3"
     dh.appendChild(img2);
-    //player hand
 
+    //player hand
     var img3 = document.createElement('img');
     img3.src=imgUrls[0];
     ph.appendChild(img3);
@@ -179,7 +178,7 @@ document.getElementById("hit-button").addEventListener("click", function(){
     playersHand.push(newDeck.shift())
     console.log(playersHand);
     imgUrls.shift();
-    //write a check to see what the total value of the players hands are and compare them
+    //write a check to see what the total value of the players hand is and compare them
     hit.className="ml-3"
     ph.appendChild(hit);
 });
@@ -190,6 +189,8 @@ document.getElementById("stand-button").addEventListener("click", function(){
     stand.src=imgUrls[0];
     dealersHand.push(newDeck.shift())
     imgUrls.shift();
+      //write a check to see what the total value of the dealers hand is and compare them
+    console.log(dealersHand);
     stand.className="ml-3"
     dh.appendChild(stand);
 });
