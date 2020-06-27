@@ -100,33 +100,37 @@ function shuffleDeck(deck)
 }
 
 var imgUrls = deck.map(function(deckObj){
-    var value = deckObj.value
-    if(value == 1)
+    var temp = deckObj.value
+    if(temp == 1)
     {
-        value = 'A'
+        temp = 'A'
     }
-    if(value == 11)
+    if(temp == 11)
     {
-        value = 'J'
+        temp = 'J'
     }
-    if(value == 12)
+    if(temp == 12)
     {
-        value = 'Q'
+        temp = 'Q'
     }
-    if(value == 13)
+    if(temp == 13)
     {
-        value = 'K'
+        temp = 'K'
     }
 
-    return `JPEG/${value}${deckObj.suit[0].toUpperCase()}.jpg`
+    return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
 })
 
 console.log(imgUrls);
 var newDeck = shuffleDeck(deck);
 
 
-var playersHand = [];
-var dealersHand = [];
+var playersHand = [newDeck[0],newDeck[2]];
+var dealersHand = [newDeck[1],newDeck[3]];
+newDeck.shift();
+newDeck.shift();
+newDeck.shift();
+newDeck.shift();
 
 //when the hands are dealt, pop off 4 cards from the array
 
@@ -144,11 +148,11 @@ document.getElementById("deal-button").addEventListener("click", function(){
     //write dealer logic here
     //retrieve dealer hand
     var img1 = document.createElement('img');
-    img1.src="JPEG/purple_back.jpg"
+    img1.src=imgUrls[0];
     dh.appendChild(img1);
 
     var img2 = document.createElement('img');
-    img2.src="JPEG/10S.jpg"
+    img2.src=imgUrls[2];
     img2.className="ml-3"
     dh.appendChild(img2);
 
@@ -156,11 +160,11 @@ document.getElementById("deal-button").addEventListener("click", function(){
 
 
     var img3 = document.createElement('img');
-    img3.src="JPEG/AS.jpg"
+    img3.src=imgUrls[1];
     ph.appendChild(img3);
 
     var img4 = document.createElement('img');
-    img4.src="JPEG/KH.jpg"
+    img4.src=imgUrls[3];
     img4.className="ml-3"
     ph.appendChild(img4);
 
