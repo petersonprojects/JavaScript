@@ -99,7 +99,31 @@ function shuffleDeck(deck)
     return deck;
 }
 
+var imgUrls = deck.map(function(deckObj){
+    var value = deckObj.value
+    if(value == 1)
+    {
+        value = 'A'
+    }
+    if(value == 11)
+    {
+        value = 'J'
+    }
+    if(value == 12)
+    {
+        value = 'Q'
+    }
+    if(value == 13)
+    {
+        value = 'K'
+    }
+
+    return `JPEG/${value}${deckObj.suit[0].toUpperCase()}.jpg`
+})
+
+console.log(imgUrls);
 var newDeck = shuffleDeck(deck);
+
 
 var playersHand = [];
 var dealersHand = [];
