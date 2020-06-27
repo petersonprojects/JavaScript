@@ -1,4 +1,6 @@
 //build a deck of cards
+
+
 var deck = [
     {name: 'ace', suit: 'heart', values: [1,11], img: },
     {name: 'ace', suit: 'spade', values: [1,11], img: },
@@ -9,9 +11,6 @@ var dealersHand = [];
 
 //when the hands are dealt, pop off 4 cards from the array
 
-//three event listeners for deal hit and stand
-
-//shuffle deck function
 
 function shuffleDeck(deck) 
 {
@@ -25,13 +24,17 @@ function shuffleDeck(deck)
     return deck;
 }
 
-//in your JS file, add the following code.  This code "listens" for the user to click the button, and then executes the //code inside the code block.  Note that the listenter takes as arguments, the event, and and annonymous function.  
-document.getElementById("btnDeal").addEventListener("click", function(){
+//"listens" for click, and then executes
+// the code inside the code block.  
+//Note that the listenter takes as arguments, the event,
+// and anfn.
+
+document.getElementById("deal-button").addEventListener("click", function(){
     //write dealer logic here
 });
-document.getElementById("btnHit").addEventListener("click", function(){
+document.getElementById("hit-button").addEventListener("click", function(){
     //write "hit" logic here
 });
-document.getElementById("btnStand").addEventListener("click", function(){
+document.getElementById("stand-button").addEventListener("click", function(){
     //write "Stand" logic here
 });

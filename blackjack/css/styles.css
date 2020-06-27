@@ -1,0 +1,15 @@
+
+img{
+    width: 200px;
+    height: 300px;
+}
+
+
+body{
+    background-position: left top;
+    background-image: url(../JPEG/background.jpg);
+    background-repeat: no-repeat;
+    background-position-x: -50px;
+    background-position-y: -420px;
+
+}
