@@ -167,13 +167,35 @@ document.getElementById("deal-button").addEventListener("click", function(){
 
 });
 
+// var temp = newDeck[0].value;
+
 document.getElementById("hit-button").addEventListener("click", function(){
     var hit = document.createElement('img');
     hit.src=imgUrls[0];
+
     playersHand.push(newDeck.shift())
-    console.log(playersHand);
+    //for loop for adding hand
+    var handTotal = 0;
+    playersHand.map(function(handObj){
+        var temp = handObj.value;
+        if(temp >= 10)
+        {
+            temp = 10;
+        }
+        handTotal += temp;
+    });
+
+    if(handTotal > 21)
+    {
+        console.log("You busted!");
+        //restarting logic
+    }
+
+    console.log(handTotal);
+
     imgUrls.shift();
     //write a check to see what the total value of the players hand is and compare them
+
     hit.className="ml-3"
     ph.appendChild(hit);
 });
@@ -181,8 +203,9 @@ document.getElementById("hit-button").addEventListener("click", function(){
 document.getElementById("stand-button").addEventListener("click", function(){
     var stand = document.createElement('img');
     stand.src=imgUrls[0];
-    dealersHand.push(newDeck.shift())
     imgUrls.shift();
+    dealersHand.push(newDeck.shift())
+
       //write a check to see what the total value of the dealers hand is and compare them
     console.log(dealersHand);
     stand.className="ml-3"
