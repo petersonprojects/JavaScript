@@ -13,3 +13,10 @@ body{
     background-position-y: -420px;
 
 }
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    height: 50px;
+
+}
