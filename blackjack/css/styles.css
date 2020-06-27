@@ -1,16 +1,16 @@
 
 img{
-    width: 200px;
-    height: 300px;
+    width: 15vw;
+    height: 40vh;
 }
 
 
 body{
     background-position: left top;
-    background-image: url(../JPEG/background.jpg);
-    background-repeat: no-repeat;
+    background-image: url(../JPEG/earth.gif);
+    background-repeat: repeat;
     background-position-x: -50px;
-    background-position-y: -420px;
+    background-position-y: -220px;
 
 }
 
