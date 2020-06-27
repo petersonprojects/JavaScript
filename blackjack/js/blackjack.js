@@ -184,5 +184,11 @@ document.getElementById("hit-button").addEventListener("click", function(){
 });
 
 document.getElementById("stand-button").addEventListener("click", function(){
-    //write "Stand" logic here
+    //write "stand" logic here
+    var stand = document.createElement('img');
+    stand.src=imgUrls[0];
+    newDeck.shift();
+    newUrls.shift();
+    stand.className="ml-3"
+    dh.appendChild(stand);
 });
