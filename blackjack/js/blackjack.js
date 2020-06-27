@@ -175,7 +175,18 @@ document.getElementById("deal-button").addEventListener("click", function(){
 });
 
 
+var handsum = 0;
 
+var phandsum = 0;
+
+var phandArray = playersHand.map(function(handObj){
+    var temp = handObj.value;
+    if(temp >= 10)
+    {
+        temp = 10;
+    }
+    return temp;
+});
 
 // var temp = newDeck[0].value;
 
@@ -186,21 +197,9 @@ document.getElementById("hit-button").addEventListener("click", function(){
     playersHand.push(newDeck.shift())
     //for loop for adding hand
 
-
-
-    var phandArray = playersHand.map(function(handObj){
-        var temp = handObj.value;
-        if(temp >= 10)
-        {
-            temp = 10;
-        }
-        return temp;
-});
-
-        var phandsum = 0;
         for(var i=0;i<phandArray.length;i++)
         {
-            phandsum += pHandArray[i];
+            phandsum += phandArray[i];
         }
 
         if(phandsum >= 17)
@@ -226,14 +225,13 @@ document.getElementById("hit-button").addEventListener("click", function(){
 
 var testing = 1;
 
+
 document.getElementById("stand-button").addEventListener("click", function(){
     // unhides the dealers card
     dh.appendChild(temp);
     var done = false;
     while(done == false)
     {
-
-        var dhandTotal = 0;
 
         var stand = document.createElement('img');
         stand.src=imgUrls[0];
@@ -243,6 +241,7 @@ document.getElementById("stand-button").addEventListener("click", function(){
                 //not sure if this goes here
         dh.appendChild(stand);
 
+        // returns an array of number values only
         var dHandArray = dealersHand.map(function(handObj){
 
             var temp = handObj.value;
@@ -254,7 +253,9 @@ document.getElementById("stand-button").addEventListener("click", function(){
             return temp;
         });
 
-       var handsum = 0;
+        console.log(`dHandArray: ${dHandArray}`);
+
+        //adds the number values from the array
         for(var i=0;i<dHandArray.length;i++)
         {
             handsum += dHandArray[i];
@@ -262,12 +263,24 @@ document.getElementById("stand-button").addEventListener("click", function(){
 
         if(handsum >= 17)
         {
+            if(handsum > 21)
+            {
+                console.log("dealer busted.");
+            }
+            else if(handsum > phandsum){
+                console.log("you lose.");
+            }
+            else if(phandsum > handsum){
+                console.log("you win.");
+            }
+            else{
+                console.log("push");
+            }
+
             done = true;
             console.log("dealer done");
         }
 
-              //write a check to see what the total value of the dealers hand is and compare them
-        console.log(`Dealers hand: ${handsum}`);
     }
 
     //then unhide card
@@ -277,6 +290,9 @@ document.getElementById("stand-button").addEventListener("click", function(){
         dh.removeChild(img1);
         testing++;
     }
+
+
+    console.log(`pHandArray: ${phandArray}`);
 
 
 });
