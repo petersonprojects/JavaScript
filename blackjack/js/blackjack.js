@@ -1,39 +1,35 @@
-//build a deck of cards
-// var deck = [{suit:'',points:0}];
-// var suit = 'hearts'
-// var points = 0;
 
-// for(var x=0;x<53;x++)
-// {
-//     if(points==13||points==26||points==39||points==52)
-//         {
-//             points=0;
+$(document).ready(function(){
 
-//             if(deck[x][suit]=='hearts'){
-//                 deck[x].suit='spades'
-//             }
-//             else if(deck[x].suit=='spades'){
-//                 deck[x].suit='clubs'
-//             }
-//             else if(deck[x].suit=='clubs'){
-//                 deck[x].suit='diamonds'
-//             }
-//             else if(deck[x].suit=='diamonds'){
-//                 deck[x].suit='hearts'
-//             }
-//         }
+  $('#restart-button').hide();
 
-//     points++;
-//     console.log(points);
+  var deck, dealerHand, playerHand;
+  deck = newDeck();
+  deck = shuffleDeck(deck);
+  dealerHand = [];
+  playerHand = [];
 
-//     deck[points]= points;
-//     deck[suit]=suit;
-// }
+  var imgUrls = deck.map(function(deckObj){
+    var temp = deckObj.value
+    if(temp == 1)
+    {
+        temp = 'A'
+    }
+    if(temp == 11)
+    {
+        temp = 'J'
+    }
+    if(temp == 12)
+    {
+        temp = 'Q'
+    }
+    if(temp == 13)
+    {
+        temp = 'K'
+    }
 
-// console.log(deck);
-
-
-//start here
+    return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
+});
 
 
 function newDeck() {
@@ -59,175 +55,154 @@ function shuffleDeck(deck)
     return deck;
 }
 
-$('#restart-button').hide();
-
-var deck, dealerHand, playerHand;
-
-setupNewGame();
-
-updateScore();
-
-var dh = document.getElementById("dealer-hand");
-var ph = document.getElementById("player-hand");
-
-var imgUrls = newDeck.map(function(deckObj){
-    var temp = deckObj.value
-    if(temp == 1)
-    {
-        temp = 'A'
-    }
-    if(temp == 11)
-    {
-        temp = 'J'
-    }
-    if(temp == 12)
-    {
-        temp = 'Q'
-    }
-    if(temp == 13)
-    {
-        temp = 'K'
-    }
-
-    return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
-});
-
 function setupNewGame() {
-    deck = newDeck();
-    deck = shuffleDeck(deck);
-    dealerHand = [];
-    playerHand = [];
+  deck = newDeck();
+  deck = shuffleDeck(deck);
+  dealerHand = [];
+  playerHand = [];
 }
 
 function calculatePoints(deck) {
-    deck = deck.slice(0);
-    deck.sort(function(a, b) {
-      return b.point - a.point;
-    });
-    return deck.reduce(function(sum, deck) {
-      var point = deck.point;
-      if (point > 10) {
-        point = 10;
-      }
-      if (point === 1 && sum < 11) {
-        point = 11;
-      }
-      return sum + point;
-    }, 0);
+  deck = deck.slice(0);
+  deck.sort(function(a, b) {
+    return b.point - a.point;
+  });
+  return deck.reduce(function(sum, deck) {
+    var point = deck.point;
+    if (point > 10) {
+      point = 10;
+    }
+    if (point === 1 && sum < 11) {
+      point = 11;
+    }
+    return sum + point;
+  }, 0);
+}
+
+function dealACardDealer(handArray, imgUrls) {
+  handArray.push(deck.shift());
+  var img1 = document.createElement('img');
+  img1.src=imgUrls[0];
+  dh.appendChild(img1);
+  updateScore();
+}
+
+function dealACardPlayer(handArray, imgUrls) {
+  handArray.push(deck.shift());
+  cardUrl = imgUrls[0];
+  ph.appendChild(cardUrl);
+  updateScore();
 }
 
 function gameOver() {
-    document.getElementById('#hit-button').hide();
-    document.getElementById('#stand-button').hide();
-    document.getElementById('#restart-button').show();
-  }
+  $('#hit-button').hide();
+  $('#stand-button').hide();
+  $('#restart-button').show();
+}
 
 function updateScore() {
-    var dealerPoints = calculatePoints(dealerHand);
-    document.getElementById('#dealer-points').text(dealerPoints);
-    var playerPoints = calculatePoints(playerHand);
-    document.getElementById('#player-points').text(playerPoints);
-  }
+  var dealerPoints = calculatePoints(dealerHand);
+  $('#dealer-points').text(dealerPoints);
+  var playerPoints = calculatePoints(playerHand);
+  $('#player-points').text(playerPoints);
+}
 
-function dealACardPlayer(handArray, imgUrls) {
-    card = deck.shift();
-    handArray.push(card);
-    cardUrl = imgUrls[0];
-    ph.appendChild(cardUrl);
-    imgUrls.shift();
-    updateScore();
-  }
+  updateScore();
+  
+  var dh = document.getElementById("dealer-hand");
+  var ph = document.getElementById("player-hand");
+  
+  // a new array of the same deck with imgUrls in their place
 
-function dealACardDealer(handArray, imgUrls) {
-    card = deck.shift();
-    handArray.push(card);
-    var img1 = document.createElement('img');
-    img1.src=imgUrls[0];
-    dh.appendChild(img1);
-    imgUrls.shift();
-    updateScore();
-  }
-
-document.getElementById("restart-button").addEventListener("click",function() {
-    document.getElementById('#deal-button').show();
-    document.getElementById('#hit-button').show();
-    document.getElementById('#stand-button').show();
-    document.getElementById('#restart-button').hide();
-    document.getElementById('#player-hand').html('');
-    document.getElementById('#dealer-hand').html('');
-    document.getElementById('#messages').text('');
-    document.getElementById('#player-points').text('0');
-    document.getElementById('#dealer-points').text('0');
-    setupNewGame();
+  $("restart-button").click(function() {
+      $('#deal-button').show();
+      $('#hit-button').show();
+      $('#stand-button').show();
+      $('#restart-button').hide();
+      $('#player-hand').html('');
+      $('#dealer-hand').html('');
+      $('#messages').text('');
+      $('#player-points').text('0');
+      $('#dealer-points').text('0');
+      setupNewGame();
+    });
+  
+  $("deal-button").click(function() {
+      dealACardPlayer(playerHand, imgUrls[0]);
+      dealACardDealer(dealerHand, imgUrls[1]);
+      dealACardPlayer(playerHand, imgUrls[2]);
+      dealACardDealer(dealerHand, imgUrls[3]);
+      imgUrls.shift();
+      imgUrls.shift();
+      imgUrls.shift();
+      imgUrls.shift();
+  
+      console.log('playerHand', playerHand);
+      console.log('dealerHand', dealerHand);
+  
+      if(calculatePoints(playerHand) === 21 && playerHand.length==2)
+      {
+        $('#messages').text('Blackjack!');
+        gameOver();
+      }
+  
+      if(calculatePoints(dealerHand) === 21 && dealerHand.length==2)
+      {
+        $('#messages').text('Dealer blackjack!');
+        gameOver();
+      }
+  
+      $("deal-button").hide();
+  
+  });
+  
+  $("hit-button").click(function(){
+      dealACardPlayer(playerHand, imgUrls[0]);
+      imgUrls.shift();
+      // check for bust
+      if (calculatePoints(playerHand) > 21) {
+        $('#messages').text('You bust!');
+        gameOver();
+      }
+  });
+  
+  $('#stand-button').click(function() {
+  
+    while (calculatePoints(dealerHand) < 17) {
+      dealACardDealer(dealerHand, imgUrls[0]);
+      imgUrls.shift();
+    }
+  
+    // check for bust
+    if (calculatePoints(dealerHand) > 21) {
+      $('#messages').text('Dealer busted!');
+    }
+  
+   else if (calculatePoints(playerHand) > 21) {
+      $('#messages').text('You busted.');
+    }
+  
+    else {
+      // determine winner
+      var dealerPoints = calculatePoints(dealerHand);
+      var playerPoints = calculatePoints(playerHand);
+      var winner = '';
+      if (dealerPoints > playerPoints) {
+        winner = 'Dealer Wins.';
+      } else if (dealerPoints < playerPoints) {
+        winner = 'You win!';
+      } else {
+        winner = 'Push'
+      }
+      $('#messages').text(winner);
+    }
+  
+    gameOver();
+  
   });
 
-document.getElementById("deal-button").addEventListener("click",function() {
-    dealACardPlayer(playerHand, imgUrls[0]);
-    dealACardDealer(dealerHand, imgUrls[1]);
-    dealACardPlayer(playerHand, imgUrls[2]);
-    dealACardDealer(dealerHand, imgUrls[3]);
+}); //end of jQuery method
 
-    console.log('playerHand', playerHand);
-    console.log('dealerHand', dealerHand);
-
-    if(calculatePoints(playerHand) === 21 && playerHand.length==2)
-    {
-      $('#messages').text('Blackjack!');
-      gameOver();
-    }
-
-    if(calculatePoints(dealerHand) === 21 && dealerHand.length==2)
-    {
-      $('#messages').text('Dealer blackjack!');
-      gameOver();
-    }
-
-    document.getElementById("deal-button").hide();
-
-});
-
-document.getElementById("hit-button").addEventListener("click", function(){
-    dealACardPlayer(playerHand, '#player-hand');
-    // check for bust
-    if (calculatePoints(playerHand) > 21) {
-      document.getElementById('#messages').text('You bust!');
-      gameOver();
-    }
-});
-
-document.getElemendById('#stand-button').addEventListener("click", function() {
-
-  while (calculatePoints(dealerHand) < 17) {
-    dealACardDealer(dealerHand, '#dealer-hand');
-  }
-
-  // check for bust
-  if (calculatePoints(dealerHand) > 21) {
-    document.getElementById('#messages').text('Dealer busted!');
-  }
-
- else if (calculatePoints(playerHand) > 21) {
-    document.getElementById('#messages').text('You busted.');
-  }
-
-  else {
-    // determine winner
-    var dealerPoints = calculatePoints(dealerHand);
-    var playerPoints = calculatePoints(playerHand);
-    var winner = '';
-    if (dealerPoints > playerPoints) {
-      winner = 'Dealer Wins.';
-    } else if (dealerPoints < playerPoints) {
-      winner = 'You win!';
-    } else {
-      winner = 'Push'
-    }
-    document.getElementById('#messages').text(winner);
-  }
-
-  gameOver();
-
-});
 
 // document.getElementById("stand-button").addEventListener("click", function(){
 //     while (calculatePoints(dealerHand) < 17) {
