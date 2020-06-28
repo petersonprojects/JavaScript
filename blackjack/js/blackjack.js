@@ -1,44 +1,13 @@
 
 $(document).ready(function(){
 
-  $('#restart-button').hide();
-
-  var deck, dealerHand, playerHand;
-  deck = newDeck();
-  deck = shuffleDeck(deck);
-  dealerHand = [];
-  playerHand = [];
-
-  var imgUrls = deck.map(function(deckObj){
-    var temp = deckObj.value
-    if(temp == 1)
-    {
-        temp = 'A'
-    }
-    if(temp == 11)
-    {
-        temp = 'J'
-    }
-    if(temp == 12)
-    {
-        temp = 'Q'
-    }
-    if(temp == 13)
-    {
-        temp = 'K'
-    }
-
-    return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
-});
-
-
 function newDeck() {
   var cards = [];
   for (var i = 1; i <= 13; i++) {
-    cards.push({ point: i, suit: 'Spades' }); 
-    cards.push({ point: i, suit: 'Hearts' });
-    cards.push({ point: i, suit: 'Clubs' });
-    cards.push({ point: i, suit: 'Diamonds' });
+    cards.push({ value: i, suit: 'spades' }); 
+    cards.push({ value: i, suit: 'hearts' });
+    cards.push({ value: i, suit: 'clubs' });
+    cards.push({ value: i, suit: 'diamonds' });
   }
   return cards;
 }
@@ -55,29 +24,89 @@ function shuffleDeck(deck)
     return deck;
 }
 
+  $('#restart-button').hide();
+
+  var deck, dealerHand, playerHand;
+  deck = newDeck();
+  deck = shuffleDeck(deck);
+  dealerHand = [];
+  playerHand = [];
+
+  var imgUrls = deck.map(function(deckObj){
+
+      var temp = deckObj.value
+      if(temp == 1)
+      {
+          temp = 'A'
+      }
+      else if(temp == 11)
+      {
+          temp = 'J'
+      }
+      else if(temp == 12)
+      {
+          temp = 'Q'
+      }
+      else if(temp == 13)
+      {
+          temp = 'K'
+      }
+  
+      return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
+    });
+
+  console.log(imgUrls);
+
+
 function setupNewGame() {
   deck = newDeck();
   deck = shuffleDeck(deck);
   dealerHand = [];
   playerHand = [];
+  imgUrls = deck.map(function(deckObj){
+
+    var temp = deckObj.value
+    if(temp == 1)
+    {
+        temp = 'A'
+    }
+    else if(temp == 11)
+    {
+        temp = 'J'
+    }
+    else if(temp == 12)
+    {
+        temp = 'Q'
+    }
+    else if(temp == 13)
+    {
+        temp = 'K'
+    }
+
+    return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
+  });
 }
 
-function calculatePoints(deck) {
-  deck = deck.slice(0);
-  deck.sort(function(a, b) {
-    return b.point - a.point;
+function calculatePoints(cards) {
+  cards = cards.slice(0);
+  cards.sort(function(a, b) {
+    return b.value - a.value;
   });
-  return deck.reduce(function(sum, deck) {
-    var point = deck.point;
-    if (point > 10) {
-      point = 10;
+  return cards.reduce(function(sum, cards) {
+    var value = cards.value;
+    if (value > 10) {
+      console.log(value);
+      value = 10;
     }
-    if (point === 1 && sum < 11) {
-      point = 11;
+    if (value === 1 && sum < 11) {
+      value = 11;
     }
-    return sum + point;
+    return sum + value;
   }, 0);
 }
+
+var dh = document.getElementById("dealer-hand");
+var ph = document.getElementById("player-hand");
 
 function dealACardDealer(handArray, imgUrls) {
   handArray.push(deck.shift());
@@ -89,14 +118,16 @@ function dealACardDealer(handArray, imgUrls) {
 
 function dealACardPlayer(handArray, imgUrls) {
   handArray.push(deck.shift());
-  cardUrl = imgUrls[0];
-  ph.appendChild(cardUrl);
+  var img1 = document.createElement('img');
+  img1.src=imgUrls[0];
+  ph.appendChild(img1);
   updateScore();
 }
 
 function gameOver() {
   $('#hit-button').hide();
   $('#stand-button').hide();
+  $('#deal-button').hide();
   $('#restart-button').show();
 }
 
@@ -108,13 +139,8 @@ function updateScore() {
 }
 
   updateScore();
-  
-  var dh = document.getElementById("dealer-hand");
-  var ph = document.getElementById("player-hand");
-  
-  // a new array of the same deck with imgUrls in their place
 
-  $("restart-button").click(function() {
+  $("#restart-button").click(function() {
       $('#deal-button').show();
       $('#hit-button').show();
       $('#stand-button').show();
@@ -127,37 +153,42 @@ function updateScore() {
       setupNewGame();
     });
   
-  $("deal-button").click(function() {
-      dealACardPlayer(playerHand, imgUrls[0]);
-      dealACardDealer(dealerHand, imgUrls[1]);
-      dealACardPlayer(playerHand, imgUrls[2]);
-      dealACardDealer(dealerHand, imgUrls[3]);
+  $("#deal-button").click(function() {
+    console.log("im here");
+      dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
+
+      dealACardDealer(dealerHand, imgUrls);
       imgUrls.shift();
+
+      dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
+
+      dealACardDealer(dealerHand, imgUrls);
       imgUrls.shift();
   
       console.log('playerHand', playerHand);
       console.log('dealerHand', dealerHand);
   
-      if(calculatePoints(playerHand) === 21 && playerHand.length==2)
+      if(calculatePoints(playerHand) == 21 && playerHand.length==2)
       {
         $('#messages').text('Blackjack!');
         gameOver();
       }
   
-      if(calculatePoints(dealerHand) === 21 && dealerHand.length==2)
+      if(calculatePoints(dealerHand) == 21 && dealerHand.length==2)
       {
         $('#messages').text('Dealer blackjack!');
         gameOver();
       }
   
-      $("deal-button").hide();
+      $("#deal-button").hide();
   
   });
   
-  $("hit-button").click(function(){
-      dealACardPlayer(playerHand, imgUrls[0]);
+  $("#hit-button").click(function(){
+    console.log("im here");
+      dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
       // check for bust
       if (calculatePoints(playerHand) > 21) {
@@ -167,9 +198,10 @@ function updateScore() {
   });
   
   $('#stand-button').click(function() {
+    console.log("im here");
   
     while (calculatePoints(dealerHand) < 17) {
-      dealACardDealer(dealerHand, imgUrls[0]);
+      dealACardDealer(dealerHand, imgUrls);
       imgUrls.shift();
     }
   
