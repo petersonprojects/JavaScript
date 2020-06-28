@@ -24,7 +24,7 @@ function shuffleDeck(deck)
     return deck;
 }
 
-  $('#restart-button').hide();
+  $('#restart-button').hide()
 
   var deck, dealerHand, playerHand;
   deck = newDeck();
@@ -107,20 +107,31 @@ function calculatePoints(cards) {
 
 var dh = document.getElementById("dealer-hand");
 var ph = document.getElementById("player-hand");
+var img1 = document.createElement('img');
+var img2 = document.createElement('img');
+
 
 function dealACardDealer(handArray, imgUrls) {
   handArray.push(deck.shift());
-  var img1 = document.createElement('img');
-  img1.src=imgUrls[0];
+  var temp = document.createElement('img');
+  temp.src=imgUrls[0];
+  dh.appendChild(temp);
+  updateScore();
+}
+
+function firstDealer(handArray) {
+  handArray.push(deck.shift());
+  img1.src="JPEG/purple_back.jpg";
+  img2.src=imgUrls[0];
   dh.appendChild(img1);
   updateScore();
 }
 
 function dealACardPlayer(handArray, imgUrls) {
   handArray.push(deck.shift());
-  var img1 = document.createElement('img');
-  img1.src=imgUrls[0];
-  ph.appendChild(img1);
+  var temp = document.createElement('img');
+  temp.src=imgUrls[0];
+  ph.appendChild(temp);
   updateScore();
 }
 
@@ -154,11 +165,10 @@ function updateScore() {
     });
   
   $("#deal-button").click(function() {
-    console.log("im here");
       dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
 
-      dealACardDealer(dealerHand, imgUrls);
+      firstDealer(dealerHand);
       imgUrls.shift();
 
       dealACardPlayer(playerHand, imgUrls);
@@ -199,6 +209,10 @@ function updateScore() {
   
   $('#stand-button').click(function() {
     console.log("im here");
+
+    //show the img of imgurls[1]first card url
+    dh.appendChild(img2);
+    dh.removeChild(img1);
   
     while (calculatePoints(dealerHand) < 17) {
       dealACardDealer(dealerHand, imgUrls);
