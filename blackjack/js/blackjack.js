@@ -520,6 +520,12 @@ $(function playBlackJack() {
         $('#messages').text('Blackjack!');
         gameOver();
       }
+
+      if(calculatePoints(dealerHand) === 21 && dealerHand.length==2)
+      {
+        $('#messages').text('Dealer blackjack!');
+        gameOver();
+      }
     });
   
     $('#hit-button').click(function() {
@@ -567,7 +573,8 @@ $(function playBlackJack() {
       $('#deal-button').show();
       $('#hit-button').show();
       $('#stand-button').show();
-      $('#play-again').hide();
+      $('#restart-button').hide();
+      $('#first-card').hide();
       $('#player-hand').html('');
       $('#dealer-hand').html('');
       $('#messages').text('');
