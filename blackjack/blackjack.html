@@ -9,32 +9,37 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
-    <div id="table">
+    <div id="table row">
 
-        <div id="messages" class="text-align"></div>
+                <button type="button" id="dealer-points"class="btn btn-dark ml-5 mt-2 mb-1">Dealer: </button>
 
-                <button type="button" id="dealer-points"class="btn btn-warning ml-5 mt-2 mb-1">Dealer: </button>
-
-                <div id="dealer-hand" class="hand ml-5">
+                <div id="dealer-hand" class="hand ml-5 row mb-5" style="height:30vh;">
 
                 </div>
-                <button type="button" id="player-points" class="btn btn-warning ml-5 mt-2 mb-1">Player: </button>   
 
-                <div id="player-hand" class="hand ml-5">
+
+                 <div id="messages" class="text-align"></div>
+
+                <button type="button" id="player-points" class="btn btn-dark ml-5 mt-2 mb-1">Player: </button>   
+
+                <div id="player-hand" class="hand ml-5 row" style="height:30vh;">
                 </div>
-            
-            <div class="buttons row">
+        </div>
 
-                <button type="button" id="deal-button" class="btn btn-danger">Deal</button>
-                
-                <button  type="button" id="hit-button" class="ml-2 btn btn-primary">Hit</button>
-                
-                <button  type="button" id="stand-button" class="ml-2  btn btn-success">Stand</button>
-                <button type="button" id="restart-button" class="ml-2 btn btn-warning">Restart</button>
-            </div>
+                    
+        <div class="buttons row mt-5" style="height:8vh;">
+
+          <button type="button" id="deal-button" class="btn btn-dark col-2">Deal</button>
+          
+          <button  type="button" id="hit-button" class="ml-2 btn btn-light col-1">Hit</button>
+          
+          <button  type="button" id="stand-button" class="ml-2 btn btn-dark col-1">Stand</button>
+          <button type="button" id="restart-button" class="ml-2 btn btn-secondary col-1">Restart</button>
+      </div>
         
         <script src="js/blackjack.js"></script>
       

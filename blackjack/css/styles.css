@@ -1,8 +1,12 @@
 
-img{
-    width: 15vw;
-    height: 35vh;
+.col{
+
     margin-left: 10px;
+}
+
+img{
+    width:15vw;
+    height: 35vh;
 }
 
 body{
@@ -11,20 +15,20 @@ body{
     background-repeat: repeat;
     background-position-x: -50px;
     background-position-y: -220px;
+    font-family: 'Roboto Mono', monospace;
 }
 
 .buttons{
     display: flex;
     justify-content: center;
     height: 50px;
-}
-.row{
-    height:5vh;
+    font-family: 'Roboto Mono', monospace;
 }
 
 #messages{
     text-align: center;
-    color:black;
-    background-color: yellow;
+    color:white;
+    background-color: black;
+    font-family: 'Roboto Mono', monospace;
     font-size: 40px;
 }

@@ -157,8 +157,8 @@ function updatePlayerScore() {
 
   $("#restart-button").click(function() {
       $('#deal-button').show();
-      $('#hit-button').show();
-      $('#stand-button').show();
+      $('#hit-button').hide();
+      $('#stand-button').hide();
       $('#restart-button').hide();
       $('#player-hand').html('');
       $('#dealer-hand').html('');
