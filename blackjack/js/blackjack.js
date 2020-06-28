@@ -64,6 +64,7 @@ function setupNewGame() {
   deck = shuffleDeck(deck);
   dealerHand = [];
   playerHand = [];
+
   imgUrls = deck.map(function(deckObj){
 
     var temp = deckObj.value
@@ -163,15 +164,19 @@ function updatePlayerScore() {
       $('#player-hand').html('');
       $('#dealer-hand').html('');
       $('#messages').text('');
-      $('#player-points').text('0');
-      $('#dealer-points').text('0');
+      $('#player-points').hide();
+      $('#dealer-points').hide();
+      $('#dealer-points').text('Dealer:');
       setupNewGame();
     });
   
   $("#deal-button").click(function() {
 
+    $('#player-points').show();
+    $('#dealer-points').show();
     $('#hit-button').show()
     $('#stand-button').show()
+    $('#dealer-points').text('Dealer:');
 
       dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
