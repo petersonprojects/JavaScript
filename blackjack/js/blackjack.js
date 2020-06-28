@@ -448,7 +448,6 @@ function shuffle(array) {
     return array;
 }
 
-
 function getCardImageUrl(card) {
     var cardName;
     if (card.point === 1) {
@@ -494,10 +493,10 @@ function getCardImageUrl(card) {
   }
 
 
-$(function domReady() {
+$(function playBlackJack() {
     $('#restart-button').hide();
   
-    var deck, dealerHand, playerHand;
+    var deck, dealerHand, playerHand, bets;
   
     setupNewGame();
   
@@ -515,6 +514,12 @@ $(function domReady() {
       console.log('dealerHand', dealerHand);
   
       $('#deal-button').hide();
+
+      if(calculatePoints(playerHand) === 21 && playerHand.length==2)
+      {
+        $('#messages').text('Blackjack!');
+        gameOver();
+      }
     });
   
     $('#hit-button').click(function() {
@@ -530,24 +535,28 @@ $(function domReady() {
       while (calculatePoints(dealerHand) < 17) {
         dealACard(dealerHand, '#dealer-hand');
       }
+
       // check for bust
       if (calculatePoints(dealerHand) > 21) {
         // dealer busts
-        $('#messages').text('Dealer busts! You win!');
-      } else if (calculatePoints(playerHand) > 21) {
+        $('#messages').text('Dealer busted!');
+      }
+
+     else if (calculatePoints(playerHand) > 21) {
         // player busts
-        $('#messages').text('You bust!');
-      } else {
+        $('#messages').text('You busted.');
+      }
+       else {
         // determine winner
         var dealerPoints = calculatePoints(dealerHand);
         var playerPoints = calculatePoints(playerHand);
         var message;
         if (dealerPoints > playerPoints) {
-          message = 'You lose!';
+          message = 'Dealer Wins.';
         } else if (dealerPoints < playerPoints) {
           message = 'You win!';
         } else {
-          message = 'Push.'
+          message = 'Push - Draw'
         }
         $('#messages').text(message);
       }
