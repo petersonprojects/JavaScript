@@ -25,6 +25,9 @@ function shuffleDeck(deck)
 }
 
   $('#restart-button').hide()
+  $('#hit-button').hide()
+  $('#stand-button').hide()
+  $('#deal-button').show()
 
   var deck, dealerHand, playerHand;
   deck = newDeck();
@@ -166,6 +169,10 @@ function updatePlayerScore() {
     });
   
   $("#deal-button").click(function() {
+
+    $('#hit-button').show()
+    $('#stand-button').show()
+
       dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
 
