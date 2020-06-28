@@ -55,8 +55,6 @@ function shuffleDeck(deck)
       return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
     });
 
-  console.log(imgUrls);
-
 
 function setupNewGame() {
   deck = newDeck();
@@ -115,24 +113,25 @@ function dealACardDealer(handArray, imgUrls) {
   handArray.push(deck.shift());
   var temp = document.createElement('img');
   temp.src=imgUrls[0];
+  temp.className="col-2 ml-2";
   dh.appendChild(temp);
-  updateScore();
 }
 
 function firstDealer(handArray) {
   handArray.push(deck.shift());
   img1.src="JPEG/purple_back.jpg";
   img2.src=imgUrls[0];
+  img1.className="col-2 ml-2";
+  img2.className="col-2 ml-2";
   dh.appendChild(img1);
-  updateScore();
 }
 
 function dealACardPlayer(handArray, imgUrls) {
   handArray.push(deck.shift());
   var temp = document.createElement('img');
   temp.src=imgUrls[0];
+  temp.className="col-2 ml-2";
   ph.appendChild(temp);
-  updateScore();
 }
 
 function gameOver() {
@@ -148,8 +147,10 @@ function updateScore() {
   var playerPoints = calculatePoints(playerHand);
   $('#player-points').text(playerPoints);
 }
-
-  updateScore();
+function updatePlayerScore() {
+  var playerPoints = calculatePoints(playerHand);
+  $('#player-points').text(playerPoints);
+}
 
   $("#restart-button").click(function() {
       $('#deal-button').show();
@@ -176,19 +177,24 @@ function updateScore() {
 
       dealACardDealer(dealerHand, imgUrls);
       imgUrls.shift();
-  
-      console.log('playerHand', playerHand);
-      console.log('dealerHand', dealerHand);
+
+      updatePlayerScore();
   
       if(calculatePoints(playerHand) == 21 && playerHand.length==2)
       {
         $('#messages').text('Blackjack!');
+        dh.appendChild(img2);
+        dh.removeChild(img1);
+        updateScore();
         gameOver();
       }
   
       if(calculatePoints(dealerHand) == 21 && dealerHand.length==2)
       {
         $('#messages').text('Dealer blackjack!');
+        dh.appendChild(img2);
+        dh.removeChild(img1);
+        updateScore();
         gameOver();
       }
   
@@ -200,6 +206,7 @@ function updateScore() {
     console.log("im here");
       dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
+      updatePlayerScore();
       // check for bust
       if (calculatePoints(playerHand) > 21) {
         $('#messages').text('You bust!');
@@ -242,6 +249,8 @@ function updateScore() {
       }
       $('#messages').text(winner);
     }
+
+    updateScore();
   
     gameOver();
   
