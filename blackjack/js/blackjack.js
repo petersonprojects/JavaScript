@@ -29,11 +29,12 @@ function shuffleDeck(deck)
   $('#stand-button').hide()
   $('#deal-button').show()
 
-  var deck, dealerHand, playerHand;
+  var deck, dealerHand, playerHand, dollars;
   deck = newDeck();
   deck = shuffleDeck(deck);
   dealerHand = [];
   playerHand = [];
+  dollars = 500;
 
   var imgUrls = deck.map(function(deckObj){
 
@@ -64,7 +65,6 @@ function setupNewGame() {
   deck = shuffleDeck(deck);
   dealerHand = [];
   playerHand = [];
-
   imgUrls = deck.map(function(deckObj){
 
     var temp = deckObj.value
@@ -151,6 +151,7 @@ function updateScore() {
   var playerPoints = calculatePoints(playerHand);
   $('#player-points').text(playerPoints);
 }
+
 function updatePlayerScore() {
   var playerPoints = calculatePoints(playerHand);
   $('#player-points').text(playerPoints);
