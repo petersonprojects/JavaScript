@@ -11,10 +11,10 @@ img{
 
 body{
     background-position: left top;
-    background-image: url(../JPEG/earth.gif);
+    background-image: url(../JPEG/astro.gif);
     background-repeat: repeat;
-    background-position-x: -50px;
-    background-position-y: -220px;
+    background-position-x: 0px;
+    background-position-y: 0px;
     font-family: 'Roboto Mono', monospace;
 }
 

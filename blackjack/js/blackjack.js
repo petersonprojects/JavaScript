@@ -2,13 +2,16 @@
 $(document).ready(function(){
 
 function newDeck() {
+
   var cards = [];
+
   for (var i = 1; i <= 13; i++) {
     cards.push({ value: i, suit: 'spades' }); 
     cards.push({ value: i, suit: 'hearts' });
     cards.push({ value: i, suit: 'clubs' });
     cards.push({ value: i, suit: 'diamonds' });
   }
+
   return cards;
 }
 
@@ -30,17 +33,15 @@ function shuffleDeck(deck)
   $('#deal-button').show()
   $('#player-points').hide()
   $('#dealer-points').hide()
+  $('#messages').text('Lock in your bet');
 
   //adding a dynamically changing bet amount
-  var dollars = 500;
-  $('#pot').text(`${dollars}`);
 
   var deck, dealerHand, playerHand;
   deck = newDeck();
   deck = shuffleDeck(deck);
   dealerHand = [];
   playerHand = [];
-
 
   var imgUrls = deck.map(function(deckObj){
 
@@ -71,6 +72,7 @@ function setupNewGame() {
   deck = shuffleDeck(deck);
   dealerHand = [];
   playerHand = [];
+
   imgUrls = deck.map(function(deckObj){
 
     var temp = deckObj.value
@@ -103,7 +105,6 @@ function calculatePoints(cards) {
   return cards.reduce(function(sum, cards) {
     var value = cards.value;
     if (value > 10) {
-      console.log(value);
       value = 10;
     }
     if (value === 1 && sum < 11) {
@@ -118,7 +119,6 @@ var ph = document.getElementById("player-hand");
 var img1 = document.createElement('img');
 var img2 = document.createElement('img');
 
-
 function dealACardDealer(handArray, imgUrls) {
   handArray.push(deck.shift());
   var temp = document.createElement('img');
@@ -126,7 +126,6 @@ function dealACardDealer(handArray, imgUrls) {
   temp.className="col-2 ml-2";
   dh.appendChild(temp);
 }
-
 function firstDealer(handArray) {
   handArray.push(deck.shift());
   img1.src="JPEG/purple_back.jpg";
@@ -135,7 +134,6 @@ function firstDealer(handArray) {
   img2.className="col-2 ml-2";
   dh.appendChild(img1);
 }
-
 function dealACardPlayer(handArray, imgUrls) {
   handArray.push(deck.shift());
   var temp = document.createElement('img');
@@ -148,6 +146,7 @@ function gameOver() {
   $('#hit-button').hide();
   $('#stand-button').hide();
   $('#deal-button').hide();
+  $('#place-bet').hide();
   $('#restart-button').show();
 }
 
@@ -158,6 +157,36 @@ function updateScore() {
   $('#player-points').text(playerPoints);
 }
 
+function placeBet(){
+  var dollars = Number(document.getElementById('pot').innerText);
+  var temp = document.getElementById('inputBet').value;
+  dollars = dollars - temp;
+  $('#pot').text(dollars);
+}
+
+function winBet(){
+  var dollars = Number(document.getElementById('pot').innerText);
+  var temp = document.getElementById('inputBet').value;
+  dollars = Number(dollars + (temp*2));
+  $('#pot').text(dollars);
+}
+
+function draw(){
+  var dollars = Number(document.getElementById('pot').innerText);
+  var temp = Number(document.getElementById('inputBet').value);
+  dollars = dollars + temp;
+  $('#pot').text(dollars);
+}
+
+function winBJ(){
+  var dollars = Number(document.getElementById('pot').innerText);
+  var temp = document.getElementById('inputBet').value;
+  var amtWon = (temp*2)*1.5;
+  dollars = dollars + amtWon
+  $('#pot').text(dollars);
+  console.log(`amount won for BJ: ${amtWon}`);
+}
+
 function updatePlayerScore() {
   var playerPoints = calculatePoints(playerHand);
   $('#player-points').text(playerPoints);
@@ -165,25 +194,35 @@ function updatePlayerScore() {
 
   $("#restart-button").click(function() {
       $('#deal-button').show();
+      $('#place-bet').show();
       $('#hit-button').hide();
       $('#stand-button').hide();
       $('#restart-button').hide();
       $('#player-hand').html('');
       $('#dealer-hand').html('');
-      $('#messages').text('');
+      $('#messages').text('Lock in your bet');
       $('#player-points').hide();
       $('#dealer-points').hide();
       $('#dealer-points').text('Dealer:');
       setupNewGame();
-    });
-  
-  $("#deal-button").click(function() {
+  });
 
+$("#place-bet").click(function(){
+      placeBet();
+      $('#place-bet').hide();
+      var amount = Number(document.getElementById('inputBet').value);
+      $('#messages').text(`Bet placed for ${amount}`);
+      $('#inputBet').val('');
+});
+  
+$("#deal-button").click(function() {
     $('#player-points').show();
     $('#dealer-points').show();
     $('#hit-button').show()
     $('#stand-button').show()
+    $('#place-bet').hide();
     $('#dealer-points').text('Dealer:');
+    $('#messages').text('');
 
       dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
@@ -204,6 +243,7 @@ function updatePlayerScore() {
         $('#messages').text('Blackjack!');
         dh.appendChild(img2);
         dh.removeChild(img1);
+        winBJ();
         updateScore();
         gameOver();
       }
@@ -219,23 +259,21 @@ function updatePlayerScore() {
   
       $("#deal-button").hide();
   
-  });
+});
   
-  $("#hit-button").click(function(){
-    console.log("im here");
+$("#hit-button").click(function(){
+
       dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
       updatePlayerScore();
-      // check for bust
+
       if (calculatePoints(playerHand) > 21) {
         $('#messages').text('You bust!');
         gameOver();
       }
-  });
+});
   
-  $('#stand-button').click(function() {
-    console.log("im here");
-
+$('#stand-button').click(function() {
     //show the img of imgurls[1]first card url
     dh.appendChild(img2);
     dh.removeChild(img1);
@@ -248,9 +286,10 @@ function updatePlayerScore() {
     // check for bust
     if (calculatePoints(dealerHand) > 21) {
       $('#messages').text('Dealer busted!');
+      winBet();
     }
   
-   else if (calculatePoints(playerHand) > 21) {
+    else if (calculatePoints(playerHand) > 21) {
       $('#messages').text('You busted.');
     }
   
@@ -263,8 +302,10 @@ function updatePlayerScore() {
         winner = 'Dealer Wins.';
       } else if (dealerPoints < playerPoints) {
         winner = 'You win!';
+        winBet();
       } else {
         winner = 'Push'
+        draw();
       }
       $('#messages').text(winner);
     }
@@ -276,116 +317,3 @@ function updatePlayerScore() {
   });
 
 }); //end of jQuery method
-
-
-// document.getElementById("stand-button").addEventListener("click", function(){
-//     while (calculatePoints(dealerHand) < 17) {
-//         dealACard(dealerHand, '#dealer-hand');
-//       }
-//       // check for bust
-//       if (calculatePoints(dealerHand) > 21) {
-//         // dealer busts
-//         $('#messages').text('Dealer busts! You win!');
-//       } else if (calculatePoints(playerHand) > 21) {
-//         // player busts
-//         $('#messages').text('You bust!');
-//       } else {
-//         // determine winner
-//         var dealerPoints = calculatePoints(dealerHand);
-//         var playerPoints = calculatePoints(playerHand);
-//         var message;
-//         if (dealerPoints > playerPoints) {
-//           message = 'You lose!';
-//         } else if (dealerPoints < playerPoints) {
-//           message = 'You win!';
-//         } else {
-//           message = 'Push.'
-//         }
-//         $('#messages').text(message);
-//       }
-//       gameOver();
-//     // unhides the dealers card
-//     // dh.appendChild(temp);
-//     // var done = false;
-//     // while (calculatePoints(dealerHand) < 17) {
-//     //     dealACard(dealerHand, '#dealer-hand');
-//     //   }
-
-//     //     var stand = document.createElement('img');
-//     //     stand.src=imgUrls[0];
-//     //     stand.className="ml-3";
-//     //     imgUrls.shift();
-//     //     dealersHand.push(newDeck.shift());
-//     //             //not sure if this goes here
-//     //     dh.appendChild(stand);
-
-//     //     // returns an array of number values only
-//     //     var dHandArray = dealersHand.map(function(handObj){
-
-//     //         var temp = handObj.value;
-//     //         console.log(`temp: ${temp}]`);
-//     //         if(temp >= 10)
-//     //         {
-//     //             temp = 10;
-//     //         }
-//     //         return temp;
-//     //     });
-
-//     //     console.log(`dHandArray: ${dHandArray}`);
-
-//     //     //adds the number values from the array
-//     //     for(var i=0;i<dHandArray.length;i++)
-//     //     {
-//     //         handsum += dHandArray[i];
-//     //     }
-
-//     //     if(handsum >= 17)
-//     //     {
-
-//     //         //make restart button appear
-
-
-//     //         if(handsum > 21)
-//     //         {
-//     //             var restart = document.createElement('button');
-//     //             restart.id = "restart-button"
-//     //             br.appendChild(restart);
-//     //             console.log("dealer busted.");
-//     //         }
-//     //         else if(handsum > phandsum){
-//     //             var restart = document.createElement('button');
-//     //             restart.id = "restart-button"
-//     //             br.appendChild(restart);
-//     //             console.log("you lose.");
-//     //         }
-//     //         else if(phandsum > handsum){
-//     //             var restart = document.createElement('button');
-//     //             restart.id = "restart-button"
-//     //             br.appendChild(restart);
-//     //             console.log("you win.");
-//     //         }
-//     //         else{
-//     //             var restart = document.createElement('button');
-//     //             restart.id = "restart-button"
-//     //             br.appendChild(restart);
-//     //             console.log("push");
-//     //         }
-
-//     //         done = true;
-//     //         console.log("dealer done");
-//     //     }
-
-//     // }
-
-//     // //then unhide card
-//     // //should only happen once
-//     // if(testing == 1)
-//     // {
-//     //     dh.removeChild(img1);
-//     //     testing++;
-//     // }
-
-
-//     // console.log(`pHandArray: ${phandArray}`);
-
-// });

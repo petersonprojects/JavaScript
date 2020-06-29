@@ -22,7 +22,7 @@
                 </div>
 
 
-                 <div id="messages" class="text-align" style="color:yellow"></div>
+                <div id="messages" class="text-align" style="color:yellow"></div>
 
                 <button type="button" id="player-points" class="btn btn-light ml-5 mt-2 mb-1">Player: </button>   
 
@@ -31,9 +31,9 @@
         </div>
 
                     
-        <div class="buttons row mt-5" style="height:8vh;">
+      <div class="buttons row mt-5" style="height:8vh;">
 
-          <button type="button" id="deal-button" class="btn btn-dark col-2">Deal</button>
+          <button type="button" id="deal-button" class="btn btn-outline-info col-2">Deal</button>
           
           <button  type="button" id="hit-button" class="ml-2 btn btn-light col-1">Hit</button>
           
@@ -43,13 +43,12 @@
 
       <form class="form-inline mb-2 ml-5">
         <div class="form-group mb-2">
-          <button type="button" id="pot" class="btn btn-warning ml-1"></button>
+          <button id="pot" class="btn btn-outline-info ml-1">500</button>
         </div>
         <div class="form-group mx-sm-3 mb-2">
-          <label for="inputPassword2" class="sr-only">enter bet amount</label>
-          <input class="form-control bg-light" id="inputPassword2" placeholder="max bet: 100">
+          <input class="form-control" id="inputBet" placeholder="enter bet here">
         </div>
-        <button type="submit" class="btn btn-warning mb-2">Place Bet</button>
+        <button type="button" id="place-bet" class="btn btn-outline-info mb-2">Place Bet</button>
       </form>
         
         <script src="js/blackjack.js"></script>
