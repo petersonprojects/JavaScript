@@ -35,8 +35,6 @@ body{
 
 #messages{
     text-align: center;
-    color:white;
-    background-color: black;
     font-family: 'Roboto Mono', monospace;
-    font-size: 40px;
+    font-size: 30px;
 }

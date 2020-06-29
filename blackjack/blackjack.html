@@ -13,7 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
-    <div id="table row" style="width: 75vw;height:75vh;position: relative;">
+    <div id="table row" style="width: 75vw;height:75vh;">
 
                 <button type="button" id="dealer-points"class="btn btn-outline-info ml-5 mt-2 mb-1">Dealer: </button>
 
@@ -21,24 +21,24 @@
 
                 </div>
 
-
-                <div id="messages" style="color:yellow; height:4vh;text-align:right;padding-right: 200px;"></div>
-
                 <button type="button" id="player-points" class="btn btn-outline-info ml-5 mt-2 mb-1">Player: </button>   
 
-                <div id="player-hand" class="hand ml-5 row z10" style="height:30vh;">
+                <div id="player-hand" class="hand ml-5 row" style="height:30vh;">
                 </div>
       </div>
 
-                    
-      <div class="buttons row mt-5" style="height:6vh;">
+      <div id="messages" class="text-info" style="height:4vh;text-align:center;padding-top: 50px;"></div>
 
-          <button type="button" id="deal-button" class="btn btn-outline-info col-2">Deal</button>
+                    
+      <div class="buttons row mt-4" style="height:7vh;">
+
+          <button type="button" id="deal-button" class="btn btn-outline-info col-2 mt-5">Deal</button>
           
-          <button  type="button" id="hit-button" class="ml-2 btn btn-outline-info col-1">Hit</button>
+          <button  type="button" id="hit-button" class="ml-2 btn btn-outline-info col-1 mt-5">Hit</button>
           
-          <button  type="button" id="stand-button" class="ml-2 btn btn-outline-info col-1">Stand</button>
-          <button type="button" id="restart-button" class="ml-2 btn btn-outline-info col-1">Play Again</button>
+          <button  type="button" id="stand-button" class="ml-2 btn btn-outline-info col-1 mt-5">Stand</button>
+          <button type="button" id="restart-button" class="ml-2 btn btn-outline-info col-1 mt-5">Play Again</button>
+
       </div>
 
       <form class="form-inline mb-2 ml-5">

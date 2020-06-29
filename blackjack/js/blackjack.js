@@ -95,26 +95,26 @@ var ph = document.getElementById("player-hand");
 var img1 = document.createElement('img');
 var img2 = document.createElement('img');
 
-function firstDeal(handArray) {
-  handArray.push(deck.shift());
-  img1.src="JPEG/purple_back.jpg";
+function firstDeal(hand) {
+  hand.push(deck.shift());
+  img1.src="JPEG/card_back_black.png";
   img2.src=imgUrls[0];
   img1.className="col-2 ml-1";
   img2.className="col-2 ml-1";
   dh.appendChild(img1);
 }
-function dealACardDealer(handArray, imgUrls) {
-  handArray.push(deck.shift());
+function dealACardDealer(hand, imgUrls) {
+  hand.push(deck.shift());
   var temp = document.createElement('img');
   temp.src=imgUrls[0];
   temp.className="col-2 ml-1";
   dh.appendChild(temp);
 }
-function dealACardPlayer(handArray, imgUrls) {
-  handArray.push(deck.shift());
+function dealACardPlayer(hand, imgUrls) {
+  hand.push(deck.shift());
   var temp = document.createElement('img');
   temp.src=imgUrls[0];
-  temp.className="col-2 ml-1";
+  temp.className="col-2 ml-1 mb-2";
   ph.appendChild(temp);
 }
 
@@ -138,21 +138,23 @@ function updatePlayerScore() {
 
 function placeBet(){
   var dollars = Number(document.getElementById('pot').innerText);
-  var temp = document.getElementById('inputBet').value;
+  var temp = Number(document.getElementById('inputBet').value);
   dollars = dollars - temp;
   $('#pot').text(dollars);
+  return temp;
 }
 
 function winBet(){
   var dollars = Number(document.getElementById('pot').innerText);
-  var temp = (document.getElementById('inputBet').value);
+  var temp = Number(document.getElementById('inputBet').value);
   dollars = dollars + (temp*2);
   $('#pot').text(dollars);
+  return temp;
 }
 
 function draw(){
   var dollars = Number(document.getElementById('pot').innerText);
-  var temp = (document.getElementById('inputBet').value);
+  var temp = Number(document.getElementById('inputBet').value);
   dollars = dollars + temp;
   $('#pot').text(dollars);
 }
@@ -164,6 +166,7 @@ function winBJ(){
   dollars = dollars + amtWon
   $('#pot').text(dollars);
   console.log(`amount won for BJ: ${amtWon}`);
+  return temp*1.5;
 }
 
   $("#restart-button").click(function() {
@@ -188,6 +191,7 @@ $("#place-bet").click(function(){
       var amount = Number(document.getElementById('inputBet').value);
       $('#messages').text(`Bet placed for ${amount}`);
       $("#inputBet").hide();
+      $('#messages').show();
 });
   
 $("#deal-button").click(function() {
@@ -197,7 +201,7 @@ $("#deal-button").click(function() {
     $('#stand-button').show()
     $('#place-bet').hide();
     $('#dealer-points').text('Dealer:');
-    $('#messages').text('');
+    $('#messages').hide();
 
       dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
@@ -215,17 +219,30 @@ $("#deal-button").click(function() {
   
       if(calculatePoints(playerHand) == 21 && playerHand.length==2)
       {
-        $('#messages').text('Blackjack!');
+        var winnings = winBJ();
+        $('#messages').show();
+        $('#messages').text(`Blackjack! + ${winnings}`);
         dh.appendChild(img2);
         dh.removeChild(img1);
-        winBJ();
         updateScore();
         gameOver();
       }
   
       if(calculatePoints(dealerHand) == 21 && dealerHand.length==2)
       {
-        $('#messages').text('Dealer blackjack!');
+        $('#messages').show();
+        $('#messages').text('Never lucky! Dealer blackjack!');
+        dh.appendChild(img2);
+        dh.removeChild(img1);
+        updateScore();
+        gameOver();
+      }
+
+      // both dealer and player getting blackjack
+      if(calculatePoints(dealerHand) == 21 && dealerHand.length==2 && calculatePoints(playerHand) == 21 && playerHand.length==2)
+      {
+        $('#messages').show();
+        $('#messages').text('What are the odds? Push');
         dh.appendChild(img2);
         dh.removeChild(img1);
         updateScore();
@@ -243,13 +260,14 @@ $("#hit-button").click(function(){
       updatePlayerScore();
 
       if (calculatePoints(playerHand) > 21) {
-        $('#messages').text('You bust!');
+        $('#messages').show();
+        $('#messages').text('Whoops, you bust!');
         gameOver();
       }
 });
   
 $('#stand-button').click(function() {
-    //show the img of imgurls[1]first card url
+    //shows dealers first card and removes card back
     dh.appendChild(img2);
     dh.removeChild(img1);
   
@@ -260,12 +278,14 @@ $('#stand-button').click(function() {
   
     // check for bust
     if (calculatePoints(dealerHand) > 21) {
-      $('#messages').text('Dealer busted!');
-      winBet();
+      var winnings = winBet();
+      $('#messages').show();
+      $('#messages').text(`Dealer busts +${winnings}`);
     }
   
     else if (calculatePoints(playerHand) > 21) {
-      $('#messages').text('You busted.');
+      $('#messages').show();
+      $('#messages').text(`Whoops, you bust`);
     }
   
     else {
@@ -273,16 +293,21 @@ $('#stand-button').click(function() {
       var dealerPoints = calculatePoints(dealerHand);
       var playerPoints = calculatePoints(playerHand);
       var winner = '';
-      if (dealerPoints > playerPoints) {
-        winner = 'Dealer Wins.';
-      } else if (dealerPoints < playerPoints) {
-        winner = 'You win!';
-        console.log(winBet());
-
-      } else {
+      if (dealerPoints > playerPoints) 
+      {
+        winner = `Dealer wins`
+      } 
+      else if (dealerPoints < playerPoints) 
+      {
+        var winnings = winBet();
+        winner = `You win! +${winnings}`;
+      } 
+      else 
+      {
         winner = 'Push'
         draw();
       }
+      $('#messages').show();
       $('#messages').text(winner);
     }
 
