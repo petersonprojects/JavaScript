@@ -166,21 +166,21 @@ function placeBet(){
 
 function winBet(){
   var dollars = Number(document.getElementById('pot').innerText);
-  var temp = document.getElementById('inputBet').value;
-  dollars = Number(dollars + (temp*2));
+  var temp = (document.getElementById('inputBet').value);
+  dollars = dollars + (temp*2);
   $('#pot').text(dollars);
 }
 
 function draw(){
   var dollars = Number(document.getElementById('pot').innerText);
-  var temp = Number(document.getElementById('inputBet').value);
+  var temp = (document.getElementById('inputBet').value);
   dollars = dollars + temp;
   $('#pot').text(dollars);
 }
 
 function winBJ(){
   var dollars = Number(document.getElementById('pot').innerText);
-  var temp = document.getElementById('inputBet').value;
+  var temp = (document.getElementById('inputBet').value);
   var amtWon = (temp*2)*1.5;
   dollars = dollars + amtWon
   $('#pot').text(dollars);
@@ -195,6 +195,7 @@ function updatePlayerScore() {
   $("#restart-button").click(function() {
       $('#deal-button').show();
       $('#place-bet').show();
+      $("#inputBet").show();
       $('#hit-button').hide();
       $('#stand-button').hide();
       $('#restart-button').hide();
@@ -212,7 +213,7 @@ $("#place-bet").click(function(){
       $('#place-bet').hide();
       var amount = Number(document.getElementById('inputBet').value);
       $('#messages').text(`Bet placed for ${amount}`);
-      $('#inputBet').val('');
+      $("#inputBet").hide();
 });
   
 $("#deal-button").click(function() {
@@ -302,7 +303,8 @@ $('#stand-button').click(function() {
         winner = 'Dealer Wins.';
       } else if (dealerPoints < playerPoints) {
         winner = 'You win!';
-        winBet();
+        console.log(winBet());
+
       } else {
         winner = 'Push'
         draw();
