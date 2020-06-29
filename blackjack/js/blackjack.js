@@ -173,8 +173,8 @@ $(document).ready(function(){
     else if(input > current_pot)
     {
       input = current_pot;
-      $('#pot').text(current_pot);
       current_pot = 0;
+      $('#pot').text(current_pot);
     }
     
     return input;
@@ -231,7 +231,6 @@ $(document).ready(function(){
       {
         $('#messages').show();
         $('#messages').text('Try less.');
-        console.log(amtBet);
       }
       else{
         $('#place-bet').hide();
