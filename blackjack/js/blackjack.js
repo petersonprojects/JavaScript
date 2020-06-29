@@ -28,13 +28,19 @@ function shuffleDeck(deck)
   $('#hit-button').hide()
   $('#stand-button').hide()
   $('#deal-button').show()
+  $('#player-points').hide()
+  $('#dealer-points').hide()
 
-  var deck, dealerHand, playerHand, dollars;
+  //adding a dynamically changing bet amount
+  var dollars = 500;
+  $('#pot').text(`${dollars}`);
+
+  var deck, dealerHand, playerHand;
   deck = newDeck();
   deck = shuffleDeck(deck);
   dealerHand = [];
   playerHand = [];
-  dollars = 500;
+
 
   var imgUrls = deck.map(function(deckObj){
 

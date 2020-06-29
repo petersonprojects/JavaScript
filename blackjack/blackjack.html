@@ -22,9 +22,9 @@
                 </div>
 
 
-                 <div id="messages" class="text-align"></div>
+                 <div id="messages" class="text-align" style="color:yellow"></div>
 
-                <button type="button" id="player-points" class="btn btn-dark ml-5 mt-2 mb-1">Player: </button>   
+                <button type="button" id="player-points" class="btn btn-light ml-5 mt-2 mb-1">Player: </button>   
 
                 <div id="player-hand" class="hand ml-5 row" style="height:30vh;">
                 </div>
@@ -43,13 +43,13 @@
 
       <form class="form-inline mb-2 ml-5">
         <div class="form-group mb-2">
-          <button type="button" class="btn btn-light ml-1">500</button>
+          <button type="button" id="pot" class="btn btn-warning ml-1"></button>
         </div>
         <div class="form-group mx-sm-3 mb-2">
-          <label for="inputPassword2" class="sr-only">your bet</label>
-          <input class="form-control" id="inputPassword2" placeholder="your bet">
+          <label for="inputPassword2" class="sr-only">enter bet amount</label>
+          <input class="form-control bg-light" id="inputPassword2" placeholder="max bet: 100">
         </div>
-        <button type="submit" class="btn btn-dark mb-2">Bet</button>
+        <button type="submit" class="btn btn-warning mb-2">Place Bet</button>
       </form>
         
         <script src="js/blackjack.js"></script>
