@@ -27,46 +27,6 @@ function shuffleDeck(deck)
     return deck;
 }
 
-  $('#restart-button').hide()
-  $('#hit-button').hide()
-  $('#stand-button').hide()
-  $('#deal-button').show()
-  $('#player-points').hide()
-  $('#dealer-points').hide()
-  $('#messages').text('Lock in your bet');
-
-  //adding a dynamically changing bet amount
-
-  var deck, dealerHand, playerHand;
-  deck = newDeck();
-  deck = shuffleDeck(deck);
-  dealerHand = [];
-  playerHand = [];
-
-  var imgUrls = deck.map(function(deckObj){
-
-      var temp = deckObj.value
-      if(temp == 1)
-      {
-          temp = 'A'
-      }
-      else if(temp == 11)
-      {
-          temp = 'J'
-      }
-      else if(temp == 12)
-      {
-          temp = 'Q'
-      }
-      else if(temp == 13)
-      {
-          temp = 'K'
-      }
-  
-      return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
-    });
-
-
 function setupNewGame() {
   deck = newDeck();
   deck = shuffleDeck(deck);
@@ -97,6 +57,19 @@ function setupNewGame() {
   });
 }
 
+  $('#restart-button').hide()
+  $('#hit-button').hide()
+  $('#stand-button').hide()
+  $('#deal-button').show()
+  $('#player-points').hide()
+  $('#dealer-points').hide()
+  $('#messages').text('Lock in your bet');
+
+  //adding a dynamically changing bet amount
+  var deck, dealerHand, playerHand, imgUrls;
+
+  setupNewGame();
+
 function calculatePoints(cards) {
   cards = cards.slice(0);
   cards.sort(function(a, b) {
@@ -104,12 +77,15 @@ function calculatePoints(cards) {
   });
   return cards.reduce(function(sum, cards) {
     var value = cards.value;
+
     if (value > 10) {
       value = 10;
     }
+    //determining ace value
     if (value === 1 && sum < 11) {
       value = 11;
     }
+
     return sum + value;
   }, 0);
 }
@@ -119,26 +95,26 @@ var ph = document.getElementById("player-hand");
 var img1 = document.createElement('img');
 var img2 = document.createElement('img');
 
+function firstDeal(handArray) {
+  handArray.push(deck.shift());
+  img1.src="JPEG/purple_back.jpg";
+  img2.src=imgUrls[0];
+  img1.className="col-2 ml-1";
+  img2.className="col-2 ml-1";
+  dh.appendChild(img1);
+}
 function dealACardDealer(handArray, imgUrls) {
   handArray.push(deck.shift());
   var temp = document.createElement('img');
   temp.src=imgUrls[0];
-  temp.className="col-2 ml-2";
+  temp.className="col-2 ml-1";
   dh.appendChild(temp);
-}
-function firstDealer(handArray) {
-  handArray.push(deck.shift());
-  img1.src="JPEG/purple_back.jpg";
-  img2.src=imgUrls[0];
-  img1.className="col-2 ml-2";
-  img2.className="col-2 ml-2";
-  dh.appendChild(img1);
 }
 function dealACardPlayer(handArray, imgUrls) {
   handArray.push(deck.shift());
   var temp = document.createElement('img');
   temp.src=imgUrls[0];
-  temp.className="col-2 ml-2";
+  temp.className="col-2 ml-1";
   ph.appendChild(temp);
 }
 
@@ -149,10 +125,13 @@ function gameOver() {
   $('#place-bet').hide();
   $('#restart-button').show();
 }
-
 function updateScore() {
   var dealerPoints = calculatePoints(dealerHand);
   $('#dealer-points').text(dealerPoints);
+  var playerPoints = calculatePoints(playerHand);
+  $('#player-points').text(playerPoints);
+}
+function updatePlayerScore() {
   var playerPoints = calculatePoints(playerHand);
   $('#player-points').text(playerPoints);
 }
@@ -185,11 +164,6 @@ function winBJ(){
   dollars = dollars + amtWon
   $('#pot').text(dollars);
   console.log(`amount won for BJ: ${amtWon}`);
-}
-
-function updatePlayerScore() {
-  var playerPoints = calculatePoints(playerHand);
-  $('#player-points').text(playerPoints);
 }
 
   $("#restart-button").click(function() {
@@ -228,7 +202,7 @@ $("#deal-button").click(function() {
       dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
 
-      firstDealer(dealerHand);
+      firstDeal(dealerHand);
       imgUrls.shift();
 
       dealACardPlayer(playerHand, imgUrls);

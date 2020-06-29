@@ -5,8 +5,8 @@
 }
 
 img{
-    width:15vw;
-    height: 35vh;
+    width:10vw;
+    height: 30vh;
 }
 
 body{
@@ -16,6 +16,14 @@ body{
     background-position-x: 0px;
     background-position-y: 0px;
     font-family: 'Roboto Mono', monospace;
+}
+
+.z10{
+    z-index:10;
+}
+
+.z9{
+    z-index: 9;
 }
 
 .buttons{
