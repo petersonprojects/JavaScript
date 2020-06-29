@@ -160,11 +160,24 @@ $(document).ready(function(){
 
   function placeBet()
   {
-    var dollars = Number(document.getElementById('pot').innerText);
-    var temp = Number(document.getElementById('inputBet').value);
-    dollars = dollars - temp;
-    $('#pot').text(dollars);
-    return temp;
+    var current_pot = Number(document.getElementById('pot').innerText);
+    var input = Number(document.getElementById('inputBet').value);
+
+
+    if(current_pot >= input)
+    {
+      current_pot = current_pot - input;
+      $('#pot').text(current_pot);
+    }
+
+    else if(input > current_pot)
+    {
+      input = current_pot;
+      $('#pot').text(current_pot);
+      current_pot = 0;
+    }
+    
+    return input;
   }
 
   function winBet()
