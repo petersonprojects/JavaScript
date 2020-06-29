@@ -3,9 +3,7 @@ $(document).ready(function(){
 
   function newDeck()
   {
-
     var cards = [];
-
     for (var i = 1; i <= 13; i++)
     {
       cards.push({ value: i, suit: 'spades' }); 
@@ -13,10 +11,8 @@ $(document).ready(function(){
       cards.push({ value: i, suit: 'clubs' });
       cards.push({ value: i, suit: 'diamonds' });
     }
-
     return cards;
   }
-
   function shuffleDeck(deck) 
   {
       for (var i = deck.length - 1; i > 0; i--) 
@@ -28,7 +24,6 @@ $(document).ready(function(){
       }
       return deck;
   }
-
   function setupNewGame() {
     deck = newDeck();
     deck = shuffleDeck(deck);
@@ -59,18 +54,21 @@ $(document).ready(function(){
     });
   }
 
-    $('#restart-button').hide()
-    $('#hit-button').hide()
-    $('#stand-button').hide()
-    $('#deal-button').hide()
-    $('#player-points').hide()
-    $('#dealer-points').hide()
-    $('#messages').text('');
+  $('#restart-button').hide()
+  $('#hit-button').hide()
+  $('#stand-button').hide()
+  $('#deal-button').hide()
+  $('#player-points').hide()
+  $('#dealer-points').hide()
+  $('#messages').text('');
 
-    //adding a dynamically changing bet amount
-    var deck, dealerHand, playerHand, imgUrls;
+  var deck, dealerHand, playerHand, imgUrls;
+  var dh = document.getElementById("dealer-hand");
+  var ph = document.getElementById("player-hand");
+  var img1 = document.createElement('img');
+  var img2 = document.createElement('img');
 
-    setupNewGame();
+  setupNewGame();
 
   function calculatePoints(cards) {
     cards = cards.slice(0);
@@ -91,12 +89,6 @@ $(document).ready(function(){
       return sum + value;
     }, 0);
   }
-
-  var dh = document.getElementById("dealer-hand");
-  var ph = document.getElementById("player-hand");
-  var img1 = document.createElement('img');
-  var img2 = document.createElement('img');
-
   function firstDeal(hand) {
     hand.push(deck.shift());
     img1.src="JPEG/card_back_black.png";
@@ -119,7 +111,6 @@ $(document).ready(function(){
     temp.className="col-2 ml-1 mb-2";
     ph.appendChild(temp);
   }
-
   function gameOver() {
     $('#hit-button').hide();
     $('#stand-button').hide();
@@ -167,19 +158,21 @@ $(document).ready(function(){
   }
 
   $("#restart-button").click(function() {
-        $('#deal-button').hide();
-        $('#place-bet').show();
-        $("#inputBet").show();
-        $('#hit-button').hide();
-        $('#stand-button').hide();
-        $('#restart-button').hide();
-        $('#player-hand').html('');
-        $('#dealer-hand').html('');
-        $('#messages').text('');
-        $('#player-points').hide();
-        $('#dealer-points').hide();
-        $('#dealer-points').text('Dealer:');
-        setupNewGame();
+    $('#deal-button').hide();
+    $('#place-bet').show();
+    $("#inputBet").show();
+    $('#hit-button').hide();
+    $('#stand-button').hide();
+    $('#restart-button').hide();
+    $('#player-hand').html('');
+    $('#dealer-hand').html('');
+    $('#messages').text('');
+    $('#player-points').hide();
+    $('#dealer-points').hide();
+    $('#dealer-points').text('Dealer:');
+
+    setupNewGame();
+
   });
 
   $("#place-bet").click(function(){
@@ -192,49 +185,49 @@ $(document).ready(function(){
   });
     
   $("#deal-button").click(function() {
-      placeBet();
-      $('#player-points').show();
-      $('#dealer-points').show();
-      $('#hit-button').show()
-      $('#stand-button').show()
-      $('#place-bet').hide();
-      $('#dealer-points').text('Dealer:');
-      $('#messages').hide();
+    placeBet();
+    $('#player-points').show();
+    $('#dealer-points').show();
+    $('#hit-button').show()
+    $('#stand-button').show()
+    $('#place-bet').hide();
+    $('#dealer-points').text('Dealer:');
+    $('#messages').hide();
 
-        dealACardPlayer(playerHand, imgUrls);
-        imgUrls.shift();
+    dealACardPlayer(playerHand, imgUrls);
+    imgUrls.shift();
 
-        firstDeal(dealerHand);
-        imgUrls.shift();
+    firstDeal(dealerHand);
+    imgUrls.shift();
 
-        dealACardPlayer(playerHand, imgUrls);
-        imgUrls.shift();
+    dealACardPlayer(playerHand, imgUrls);
+    imgUrls.shift();
 
-        dealACardDealer(dealerHand, imgUrls);
-        imgUrls.shift();
+    dealACardDealer(dealerHand, imgUrls);
+    imgUrls.shift();
 
-        updatePlayerScore();
+    updatePlayerScore();
     
-        if(calculatePoints(playerHand) == 21 && playerHand.length==2)
-        {
-          var winnings = winBJ();
-          $('#messages').show();
-          $('#messages').text(`Blackjack! +${winnings}`);
-          dh.appendChild(img2);
-          dh.removeChild(img1);
-          updateScore();
-          gameOver();
-        }
+    if(calculatePoints(playerHand) == 21 && playerHand.length==2)
+    {
+      var winnings = winBJ();
+      $('#messages').show();
+      $('#messages').text(`Blackjack! +${winnings}`);
+      dh.appendChild(img2);
+      dh.removeChild(img1);
+      updateScore();
+      gameOver();
+    }
     
-        if(calculatePoints(dealerHand) == 21 && dealerHand.length==2)
-        {
-          $('#messages').show();
-          $('#messages').text('Never lucky! Dealer blackjack!');
-          dh.appendChild(img2);
-          dh.removeChild(img1);
-          updateScore();
-          gameOver();
-        }
+    if(calculatePoints(dealerHand) == 21 && dealerHand.length==2)
+    {
+      $('#messages').show();
+      $('#messages').text('Never lucky! Dealer blackjack!');
+      dh.appendChild(img2);
+      dh.removeChild(img1);
+      updateScore();
+      gameOver();
+    }
 
         // both dealer and player getting blackjack
         if(calculatePoints(dealerHand) == 21 && dealerHand.length==2 && calculatePoints(playerHand) == 21 && playerHand.length==2)
@@ -248,9 +241,8 @@ $(document).ready(function(){
         }
     
         $("#deal-button").hide();
-    
   });
-    
+
   $("#hit-button").click(function(){
       dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
