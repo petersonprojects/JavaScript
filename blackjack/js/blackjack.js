@@ -1,6 +1,14 @@
 
 $(document).ready(function(){
-
+  //last edited 06.29.2020 by Micah Peterson
+  //some initalization 
+  var deck, dealerHand, playerHand, imgUrls;
+  var dh = document.getElementById("dealer-hand");
+  var ph = document.getElementById("player-hand");
+  // temp images for dealer card back and acutal card underneath
+  var img1 = document.createElement('img');
+  var img2 = document.createElement('img');
+  //create a new deck of card objects organized just how you buy them
   function newDeck()
   {
     var cards = [];
@@ -13,17 +21,26 @@ $(document).ready(function(){
     }
     return cards;
   }
+  // shuffle the deck by swapping random positions with random other elements 52 times
   function shuffleDeck(deck) 
   {
       for (var i = deck.length - 1; i > 0; i--) 
       {
+        //random position of who to switch with
           var j = Math.floor(Math.random() * (i + 1));
+          // swaps the first or the old value with the next one in the deck
           var temp = deck[i];
           deck[i] = deck[j];
+          //saves the other swapped value
           deck[j] = temp;
       }
       return deck;
   }
+
+  //setupNewGame() replaces old deck with new one and shuffles it
+  //empties the player and dealer hand and 
+  //creates a new array of img urls mapped from the new shuffled deck
+
   function setupNewGame() {
     deck = newDeck();
     deck = shuffleDeck(deck);
@@ -62,19 +79,20 @@ $(document).ready(function(){
   $('#dealer-points').hide()
   $('#messages').text('');
 
-  var deck, dealerHand, playerHand, imgUrls;
-  var dh = document.getElementById("dealer-hand");
-  var ph = document.getElementById("player-hand");
-  var img1 = document.createElement('img');
-  var img2 = document.createElement('img');
-
   setupNewGame();
 
-  function calculatePoints(cards) {
+  function calculatePoints(cards)
+  {
     cards = cards.slice(0);
+    // puts cards in order smallest to largest value
     cards.sort(function(a, b) {
+      console.log(`sorting ${b.value} - ${a.value}`);
       return b.value - a.value;
     });
+
+    // the second parameter in reduce is the currentVal you want to start at
+    // meaning the first card in the hand list
+    // and the first parameter is the "accumulator"
     return cards.reduce(function(sum, cards) {
       var value = cards.value;
 
@@ -87,8 +105,11 @@ $(document).ready(function(){
       }
 
       return sum + value;
+      //initial value every time hand is calculated
     }, 0);
   }
+  // these functions for dealing can be condensed to one function
+  // but it is working for now so dont worry about it
   function firstDeal(hand) {
     hand.push(deck.shift());
     img1.src="JPEG/card_back_black.png";
@@ -111,44 +132,57 @@ $(document).ready(function(){
     temp.className="col-2 ml-1 mb-2";
     ph.appendChild(temp);
   }
-  function gameOver() {
+  //what to do with the buttons when player wins or loses
+  function gameOver()
+  {
     $('#hit-button').hide();
     $('#stand-button').hide();
     $('#deal-button').hide();
     $('#place-bet').hide();
     $('#restart-button').show();
   }
-  function updateScore() {
+
+  //calculates new set of points during deal hit and stand phase
+  function updateScore()
+  {
     var dealerPoints = calculatePoints(dealerHand);
     $('#dealer-points').text(dealerPoints);
     var playerPoints = calculatePoints(playerHand);
     $('#player-points').text(playerPoints);
   }
-  function updatePlayerScore() {
+  // used for only the hit button so the dealers points are still hidden
+  function updatePlayerScore()
+  {
     var playerPoints = calculatePoints(playerHand);
     $('#player-points').text(playerPoints);
   }
-  function placeBet(){
+
+  function placeBet()
+  {
     var dollars = Number(document.getElementById('pot').innerText);
     var temp = Number(document.getElementById('inputBet').value);
     dollars = dollars - temp;
     $('#pot').text(dollars);
     return temp;
   }
-  function winBet(){
+  
+  function winBet()
+  {
     var dollars = Number(document.getElementById('pot').innerText);
     var temp = Number(document.getElementById('inputBet').value);
     dollars = dollars + (temp*2);
     $('#pot').text(dollars);
     return temp*2;
   }
-  function draw(){
+  function draw()
+  {
     var dollars = Number(document.getElementById('pot').innerText);
     var temp = Number(document.getElementById('inputBet').value);
     dollars = dollars + temp;
     $('#pot').text(dollars);
   }
-  function winBJ(){
+  function winBJ()
+  {
     var dollars = Number(document.getElementById('pot').innerText);
     var temp = Number(document.getElementById('inputBet').value);
     var amtWon = (temp*2)*1.5;
@@ -157,7 +191,8 @@ $(document).ready(function(){
     return temp*2*1.5;
   }
 
-  $("#restart-button").click(function() {
+  $("#restart-button").click(function()
+  {
     $('#deal-button').hide();
     $('#place-bet').show();
     $("#inputBet").show();
@@ -175,16 +210,18 @@ $(document).ready(function(){
 
   });
 
-  $("#place-bet").click(function(){
-        $('#place-bet').hide();
-        var amount = Number(document.getElementById('inputBet').value);
-        $('#messages').text(`Risk ${amount}?`);
-        $("#inputBet").hide();
-        $('#messages').show();
-        $('#deal-button').show();
+  $("#place-bet").click(function()
+  {
+      $('#place-bet').hide();
+      var amount = Number(document.getElementById('inputBet').value);
+      $('#messages').text(`Risk ${amount}?`);
+      $("#inputBet").hide();
+      $('#messages').show();
+      $('#deal-button').show();
   });
     
-  $("#deal-button").click(function() {
+  $("#deal-button").click(function()
+  {
     placeBet();
     $('#player-points').show();
     $('#dealer-points').show();
@@ -243,7 +280,8 @@ $(document).ready(function(){
         $("#deal-button").hide();
   });
 
-  $("#hit-button").click(function(){
+  $("#hit-button").click(function()
+  {
       dealACardPlayer(playerHand, imgUrls);
       imgUrls.shift();
       updatePlayerScore();
@@ -256,7 +294,8 @@ $(document).ready(function(){
       }
   });
 
-  $('#stand-button').click(function() {
+  $('#stand-button').click(function()
+  {
       //shows dealers first card and removes card back
       dh.appendChild(img2);
       dh.removeChild(img1);
@@ -302,9 +341,8 @@ $(document).ready(function(){
       }
 
       updateScore();
-    
       gameOver();
     
   });
 
-}); //end of jQuery method
+}); //end of jQuery document.ready -- this runs when the document has finished loading
