@@ -9,6 +9,7 @@ $(document).ready(function(){
   var img1 = document.createElement('img');
   var img2 = document.createElement('img');
   //create a new deck of card objects organized just how you buy them
+  //gets starting pot from HTML
   function newDeck()
   {
     var cards = [];
@@ -165,14 +166,14 @@ $(document).ready(function(){
     $('#pot').text(dollars);
     return temp;
   }
-  
+
   function winBet()
   {
     var dollars = Number(document.getElementById('pot').innerText);
     var temp = Number(document.getElementById('inputBet').value);
     dollars = dollars + (temp*2);
     $('#pot').text(dollars);
-    return temp*2;
+    return temp;
   }
   function draw()
   {
@@ -188,7 +189,7 @@ $(document).ready(function(){
     var amtWon = (temp*2)*1.5;
     dollars = dollars + amtWon
     $('#pot').text(dollars);
-    return temp*2*1.5;
+    return temp*1.5;
   }
 
   $("#restart-button").click(function()
@@ -212,17 +213,26 @@ $(document).ready(function(){
 
   $("#place-bet").click(function()
   {
-      $('#place-bet').hide();
-      var amount = Number(document.getElementById('inputBet').value);
-      $('#messages').text(`Risk ${amount}?`);
-      $("#inputBet").hide();
-      $('#messages').show();
-      $('#deal-button').show();
+      var amt = placeBet();
+      if(amt > 100)
+      {
+        $('#messages').show();
+        $('#messages').text('Try less.');
+        console.log(amtBet);
+      }
+      else{
+        $('#place-bet').hide();
+        $("#inputBet").hide();
+        $('#messages').show();
+
+        $('#messages').text(`Risk ${amt}?`);
+        $('#deal-button').show();
+      }
+
   });
     
   $("#deal-button").click(function()
   {
-    placeBet();
     $('#player-points').show();
     $('#dealer-points').show();
     $('#hit-button').show()
