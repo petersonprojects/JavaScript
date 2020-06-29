@@ -60,10 +60,10 @@ function setupNewGame() {
   $('#restart-button').hide()
   $('#hit-button').hide()
   $('#stand-button').hide()
-  $('#deal-button').show()
+  $('#deal-button').hide()
   $('#player-points').hide()
   $('#dealer-points').hide()
-  $('#messages').text('Lock in your bet');
+  $('#messages').text('');
 
   //adding a dynamically changing bet amount
   var deck, dealerHand, playerHand, imgUrls;
@@ -149,7 +149,7 @@ function winBet(){
   var temp = Number(document.getElementById('inputBet').value);
   dollars = dollars + (temp*2);
   $('#pot').text(dollars);
-  return temp;
+  return temp*2;
 }
 
 function draw(){
@@ -161,16 +161,15 @@ function draw(){
 
 function winBJ(){
   var dollars = Number(document.getElementById('pot').innerText);
-  var temp = (document.getElementById('inputBet').value);
+  var temp = Number(document.getElementById('inputBet').value);
   var amtWon = (temp*2)*1.5;
   dollars = dollars + amtWon
   $('#pot').text(dollars);
-  console.log(`amount won for BJ: ${amtWon}`);
-  return temp*1.5;
+  return temp*2*1.5;
 }
 
   $("#restart-button").click(function() {
-      $('#deal-button').show();
+      $('#deal-button').hide();
       $('#place-bet').show();
       $("#inputBet").show();
       $('#hit-button').hide();
@@ -178,7 +177,7 @@ function winBJ(){
       $('#restart-button').hide();
       $('#player-hand').html('');
       $('#dealer-hand').html('');
-      $('#messages').text('Lock in your bet');
+      $('#messages').text('');
       $('#player-points').hide();
       $('#dealer-points').hide();
       $('#dealer-points').text('Dealer:');
@@ -186,15 +185,16 @@ function winBJ(){
   });
 
 $("#place-bet").click(function(){
-      placeBet();
       $('#place-bet').hide();
       var amount = Number(document.getElementById('inputBet').value);
-      $('#messages').text(`Bet placed for ${amount}`);
+      $('#messages').text(`Risk ${amount}?`);
       $("#inputBet").hide();
       $('#messages').show();
+      $('#deal-button').show();
 });
   
 $("#deal-button").click(function() {
+    placeBet();
     $('#player-points').show();
     $('#dealer-points').show();
     $('#hit-button').show()
@@ -221,7 +221,7 @@ $("#deal-button").click(function() {
       {
         var winnings = winBJ();
         $('#messages').show();
-        $('#messages').text(`Blackjack! + ${winnings}`);
+        $('#messages').text(`Blackjack! +${winnings}`);
         dh.appendChild(img2);
         dh.removeChild(img1);
         updateScore();
