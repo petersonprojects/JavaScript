@@ -16,18 +16,29 @@
 
   <body>
       
-    <div class="container">
+    <div class="container-fluid">
 
-        <input type="text" placeholder="enter city to add">
+      <div class="row">
 
-        <button id="enter">Enter</button>
-        <button id="clear">Clear</button>
+        <div class="offset-1 col-3 d-flex justify-content-end align-items-center name">
+          <div>Weather App</div>
+        </div>
 
-        <br>
-    
+        <div class="col-8 d-flex justify-content-center px-0">
+          <input class="form-control mt-5 mb-5 mr-3" type="text" placeholder="enter city to add" style="width: 300px;">
+  
+          <button class="btn btn-outline-info mt-5 mb-5 mr-2" id="enter">Enter</button>
+          <button class="btn btn-outline-info mt-5 mb-5" id="clear">Clear</button>
+        </div>
+
+      </div>
+
+      <div class="row second">
         <ul>
   
         </ul>
+      </div>
+
 
     </div>
 

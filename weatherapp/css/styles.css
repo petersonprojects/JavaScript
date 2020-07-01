@@ -1,9 +1,31 @@
-
+    body{
+        font-family: monospace;
+    }
+    input{
+        background-color: ghostwhite;
+        color:black;
+    }
     div{
-        background-color: pink;
-        font-size: 40px;
+        background-color: black;
+        font-size: 30px;
     }
     ul{
         background-color: ghostwhite;
         color: black;
+        list-style: none;
+    }
+    .l-item{
+        font-size: 25px;
+        background-color: ghostwhite;
+        margin-top:10px;
+    }
+    .second{
+        background-color: ghostwhite;
+    }
+
+    .name{
+        font-size: 50px;
+        font-weight: bold;
+        font-family: monospace;
+        color:#5bc0de
     }
