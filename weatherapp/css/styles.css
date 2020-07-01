@@ -1,22 +1,29 @@
     body{
         font-family: monospace;
+        background-color: #5bc0de;
     }
     input{
         background-color: ghostwhite;
         color:black;
     }
     div{
-        background-color: black;
         font-size: 30px;
     }
     ul{
-        background-color: ghostwhite;
-        color: black;
+        background-color: #5bc0de;
         list-style: none;
+        padding-left: 0px;
     }
-    .l-item{
+    .cold{
         font-size: 25px;
-        background-color: ghostwhite;
+        background-color: black;
+        color:rgb(78, 78, 184);;
+        margin-top:10px;
+    }
+    .neutral{
+        font-size: 25px;
+        background-color: black;
+        color: tan;
         margin-top:10px;
     }
     .second{
@@ -27,5 +34,12 @@
         font-size: 50px;
         font-weight: bold;
         font-family: monospace;
-        color:#5bc0de
+        color:white;
+    }
+
+    .hot{
+        background-color: black;
+        color: red;
+        font-size: 25px;
+        margin-top:10px;
     }
