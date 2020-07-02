@@ -4,30 +4,24 @@ body{
     background-color: #5bc0de;
     margin:0px;
 }
-input{
-    background-color: ghostwhite;
-    color:black;
-}
+
 div{
     font-size: 30px;
 }
+
 ul{
     background-color: #5bc0de;
     list-style: none;
     padding-left: 0px;
 }
+
 .cold{
     font-size: 25px;
     background-color: black;
     color:rgb(78, 78, 184);;
     margin-top:10px;
 }
-.neutral{
-    font-size: 25px;
-    background-color: black;
-    color: tan;
-    margin-top:10px;
-}
+
 .second{
     background-color: ghostwhite;
 }
@@ -37,11 +31,4 @@ ul{
     font-weight: bold;
     font-family: monospace;
     color:white;
-}
-
-.hot{
-    background-color: black;
-    color: red;
-    font-size: 25px;
-    margin-top:10px;
 }

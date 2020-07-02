@@ -1,9 +1,10 @@
+// start of jQuery
 $(()=>{
 
     function getinfo()
     {
 
-            for(let i = 1;i < 10; i++)
+            for(let i = 1;i < 40; i++)
             {
                 $.get(`https://anapioficeandfire.com/api/characters/${i}`)
                 .done((character)=>{
@@ -14,10 +15,12 @@ $(()=>{
                         .done((houses)=>{
                             if(character.name.length == 0)
                             {
-                                console.log(`${character.aliases} ${houses.name}`);
+                                $('ul').append(`<li class="cold" style="height: 200px;padding-top:75px;">${character.aliases}
+                                <button class="btn btn-outline-info">${houses.name}</li>`);
                             }
                             else{
-                                console.log(`${character.name} ${houses.name}`);
+                                $('ul').append(`<li class="cold" style="height: 200px;padding-top:75px;">${character.name}
+                                <button class="btn btn-outline-info">${houses.name}</li>`);
                             }
 
                         })
@@ -30,10 +33,12 @@ $(()=>{
                     {
                         if(character.name.length == 0)
                         {
-                            console.log(`${character.aliases} has no allegiances.`);
+                            $('ul').append(`<li class="cold" style="height: 200px;padding-top:75px;">${character.aliases}
+                                <button class="btn btn-outline-info">No Allegiances</li>`);
                         }
                         else{
-                            console.log(`${character.name} has no allegiances.`);
+                            $('ul').append(`<li class="cold" style="height: 200px;padding-top:75px;">${character.name}
+                                <button class="btn btn-outline-info">No Allegiances</li>`);
                         }
                     }
                 })
@@ -42,11 +47,16 @@ $(()=>{
                 })
             }
 
-    }
+    } // end of getinfo function
+
     // now target a specific house that was clicked and gets only that data
     // and posts it to the screen
+    $('li').click((e)=>{
+        var target = e.target
+        console.log(target);
+    })
 
     getinfo()
 
 
-})
+}); //end of JQuery
