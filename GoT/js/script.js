@@ -5,7 +5,7 @@ $(()=>{
     {
         for(let i = 1;i < 150; i++)
         {
-            $.get(`https://anapioficeandfire.com/api/characters/${i}`)
+            $.get(`https://anapioficeandfire.com/api/characters?${i}`)
             .done((character)=>{
 
                 $.get(character.allegiances[0])
@@ -39,7 +39,7 @@ $(()=>{
             .fail(()=>{
                 alert("Api character loading failed.");
             })
-        }
+        } end for loop
 
     } // end of getinfo function
 
