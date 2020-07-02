@@ -3,10 +3,7 @@ body{
     font-family: monospace;
     background-color: #5bc0de;
     margin:0px;
-}
-
-div{
-    font-size: 30px;
+    color:white;
 }
 
 ul{
@@ -15,11 +12,18 @@ ul{
     padding-left: 0px;
 }
 
+li{
+    display:block;
+}
+
 .cold{
-    font-size: 25px;
-    background-color: black;
-    color:rgb(78, 78, 184);;
+    font-size: 18px;
+    color:black;
     margin-top:10px;
+}
+
+button{
+    font: 300 8px Arial;
 }
 
 .second{

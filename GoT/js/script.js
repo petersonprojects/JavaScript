@@ -3,60 +3,79 @@ $(()=>{
 
     function getinfo()
     {
+        for(let i = 1;i < 21; i++)
+        {
+            $.get(`https://anapioficeandfire.com/api/characters/${i}`)
+            .done((character)=>{
 
-            for(let i = 1;i < 40; i++)
-            {
-                $.get(`https://anapioficeandfire.com/api/characters/${i}`)
-                .done((character)=>{
-
-                    if(character.allegiances.length > 0)
-                    {
-                        $.get(character.allegiances[0])
-                        .done((houses)=>{
-                            if(character.name.length == 0)
-                            {
-                                $('ul').append(`<li class="cold" style="height: 200px;padding-top:75px;">${character.aliases}
-                                <button class="btn btn-outline-info">${houses.name}</li>`);
-                            }
-                            else{
-                                $('ul').append(`<li class="cold" style="height: 200px;padding-top:75px;">${character.name}
-                                <button class="btn btn-outline-info">${houses.name}</li>`);
-                            }
-
-                        })
-                        .fail(()=>{
-                            alert("Api house loading failed.");
-                        })
-                    }
-
-                    else
-                    {
+                if(character.allegiances.length > 0)
+                {
+                    $.get(character.allegiances[0])
+                    .done((houses)=>{
                         if(character.name.length == 0)
                         {
-                            $('ul').append(`<li class="cold" style="height: 200px;padding-top:75px;">${character.aliases}
-                                <button class="btn btn-outline-info">No Allegiances</li>`);
+                            $('ul').append(`<li class="cold col-4 mt-3">${character.aliases}: <button class="btn btn-dark">${houses.name}</li>`);
                         }
                         else{
-                            $('ul').append(`<li class="cold" style="height: 200px;padding-top:75px;">${character.name}
-                                <button class="btn btn-outline-info">No Allegiances</li>`);
+                            $('ul').append(`<li class="cold col-4 mt-3">${character.name}: <button class="btn btn-dark">${houses.name}</li>`);
                         }
+                    })
+                    .fail(()=>{
+                        alert("Api house loading failed.");
+                    })
+                }
+
+                else
+                {
+                    if(character.name.length == 0)
+                    {
+                        $('ul').append(`<li class="cold col-4 mt-3">${character.aliases}: <button class="btn btn-dark">No Allegiances</li>`);
                     }
-                })
-                .fail(()=>{
-                    alert("Api character loading failed.");
-                })
-            }
+                    else{
+                        $('ul').append(`<li class="cold col-4 mt-3">${character.name}: <button class="btn btn-dark">No Allegiances</li>`);
+                    }
+                }
+            })
+            .fail(()=>{
+                alert("Api character loading failed.");
+            })
+        }
 
     } // end of getinfo function
 
-    // now target a specific house that was clicked and gets only that data
-    // and posts it to the screen
-    $('li').click((e)=>{
-        var target = e.target
-        console.log(target);
-    })
+    function getHouseInfo(index)
+    {
+            $.get(`https://anapioficeandfire.com/api/characters/${index}`)
+            .done((character)=>{
+
+                if(character.allegiances.length > 0)
+                {
+                    $.get(character.allegiances[0])
+                    .done((houses)=>{
+                        $('ul').append(`<li>Region: ${houses.region}</li>`);
+                    })
+                    .fail(()=>{
+                        alert("Api house loading failed.");
+                    })
+                }
+
+                else
+                {
+                    alert('Character has no house info.')
+                }
+            })
+            .fail(()=>{
+                alert("Api character loading failed.");
+            })
+    }
 
     getinfo()
 
+    $('ul').on('click','li',(e)=>{
+        var listItem = (e.target.parentNode)
+        var index= $('li').index(listItem);
+        //now that we have the index of the list item we can search for the house info api when clicked
+        getHouseInfo(index);
+    })
 
 }); //end of JQuery
