@@ -37,8 +37,8 @@ $(()=>{
         $('input').val('')
     })
 
-    $('input').keydown((sam)=>{
-        if(sam.which == 13)
+    $('input').keydown((sand)=>{
+        if(sand.which == 13)
         {
             getinfo()
             $('input').val('')
