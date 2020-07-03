@@ -1,30 +1,45 @@
 // start of jQuery
 $(()=>{
 
-    let characterArray = [];
-    let housesArray = [];
-    
-    for(let i = 1;i < 50; i++)
-    {
-        characterArray.push($.get(`https://anapioficeandfire.com/api/characters/${i}`))
-    }
-
-    // let characters = Promise.all(characterArray)
-    // .then((data)=>{
-    //     console.log(data);
-    // })
-    // let houses = Promise.all(housesArray)
-    // .then((data)=>{
-    //     console.log(data);
-    // })
-
-    Promise.all([characterArray, housesArray])
-    .then((data)=>{
-        console.log(data);
-    })
-
     function getinfo(data)
     {
+
+        let characterArray = [];
+
+        let p1 = new Promise((resolve, reject)=>{
+            for(let i = 1;i < 50; i++)
+            {
+                characterArray.push($.get(`https://anapioficeandfire.com/api/characters/${i}`))
+                var houses = characterArray.map((characters)=>{
+                    if(characters.allegiances.length > 0)
+                    {
+                        let houseURL = 
+                    }
+                    else if(character.allegiances.length == 0)
+                    {
+
+                    }
+                })
+            }
+            resolve();
+        });
+        let p2 = new Promise((resolve, reject)=>{
+            for(let i = 1;i < 50; i++)
+            {
+                houses.push($.get(`https://anapioficeandfire.com/api/houses/`))
+                resolve();
+            }
+        });
+    
+        Promise.all([characterArray, housesArray])
+        .then((data)=>{
+            console.log(data);
+            resolve(data);
+        })
+        .then(()=>{
+            //get the house api
+        })
+
         for(let i = 1;i < 50; i++)
         {
             $.get(`https://anapioficeandfire.com/api/characters/${i}`)
