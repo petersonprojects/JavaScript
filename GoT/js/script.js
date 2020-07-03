@@ -8,7 +8,7 @@ $(()=>{
         let houseURLs = [];
 
         let p1 = new Promise((resolve, reject)=>{
-            
+            // just testing with the first 25 pages
             for(let i = 1;i < 25; i++)
             {
                 $.get(`https://anapioficeandfire.com/api/characters/${i}`)
