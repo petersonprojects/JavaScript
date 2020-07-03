@@ -1,13 +1,34 @@
 // start of jQuery
 $(()=>{
 
-    function getinfo()
+    let characterArray = [];
+    let housesArray = [];
+    
+    for(let i = 1;i < 50; i++)
     {
-        for(let i = 1;i < 150; i++)
-        {
-            $.get(`https://anapioficeandfire.com/api/characters?${i}`)
-            .done((character)=>{
+        characterArray.push($.get(`https://anapioficeandfire.com/api/characters/${i}`))
+    }
 
+    // let characters = Promise.all(characterArray)
+    // .then((data)=>{
+    //     console.log(data);
+    // })
+    // let houses = Promise.all(housesArray)
+    // .then((data)=>{
+    //     console.log(data);
+    // })
+
+    Promise.all([characterArray, housesArray])
+    .then((data)=>{
+        console.log(data);
+    })
+
+    function getinfo(data)
+    {
+        for(let i = 1;i < 50; i++)
+        {
+            $.get(`https://anapioficeandfire.com/api/characters/${i}`)
+            .done((character)=>{
                 $.get(character.allegiances[0])
                 .done((houses)=>{
 
@@ -39,36 +60,31 @@ $(()=>{
             .fail(()=>{
                 alert("Api character loading failed.");
             })
-        } end for loop
-
+        } //end for loop
     } // end of getinfo function
 
-    function getHouseInfo(index)
+    function getHouseInfo(char_index)
     {
-        $.get(`https://anapioficeandfire.com/api/characters/${index+1}`)
-        .done((character)=>{
-
+        $.get(`https://anapioficeandfire.com/api/characters/${char_index+1}`)
+            .done((character)=>{
                 $.get(character.allegiances[0])
                 .done((houses)=>{
-
                     if(character.allegiances.length > 0)
                     {
-                        $('li')[index].append(`Region: ${houses.region}`)
+                        $('li')[char_index].append(`Region: ${houses.region}`)
                     }
-
                     else if(character.allegiances.length == 0)
-                    {   
-                        $('li')[index].append(`No Allegiances`)
+                    {
+                        $('li')[char_index].append(`No allegiances.`)
                     }
-
                 })
                 .fail(()=>{
                     alert("Api house loading failed.");
                 })
-        })
-        .fail(()=>{
-            alert("Api character loading failed.");
-        })
+            })
+            .fail(()=>{
+                alert("Api character loading failed.");
+            })
 
     } //end of getHouseInfo
 
