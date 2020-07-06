@@ -6,7 +6,7 @@
 
 $(()=>{
 
-    //recursion method
+    //recursion method of getting api data
     let pageNum = 1;
 
     function getNames(pageNum)
