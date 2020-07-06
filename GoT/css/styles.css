@@ -3,7 +3,6 @@ body{
     font-family: monospace;
     background-color: #5bc0de;
     margin:0px;
-    color:white;
 }
 
 ul{
@@ -26,13 +25,8 @@ button{
     font: 300 8px Arial;
 }
 
-.second{
-    background-color: ghostwhite;
-}
-
 .name{
     font-size: 50px;
     font-weight: bold;
     font-family: monospace;
-    color:white;
 }
