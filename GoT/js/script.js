@@ -7,62 +7,75 @@ $(()=>{
         let characterArray = [];
         let houseURLs = [];
 
-        let p1 = new Promise((resolve, reject)=>{
-            // just testing with the first 25 pages
-            for(let i = 1;i < 25; i++)
-            {
-                $.get(`https://anapioficeandfire.com/api/characters/${i}`)
-                .done((api_chars)=>{
+        for(let i = 0;i<= 50;i++)
+        {
+            $.get(`https://anapioficeandfire.com/api/characters?page=${i}&pageSize=50`)
+            .done((charList)=>{
+                characterArray.push(charList.name)
+            })
+            .done(()=>{
+                console.log(characterArray);
 
-                    if(api_chars.name.length > 0)
-                    {
-                        characterArray.push(api_chars.name)
-                    }
-                    else{
-                        characterArray.push(api_chars.aliases[0]);
-                    }
-                    if(api_chars.allegiances.length > 0)
-                    {
-                        houseURLs.push(api_chars.allegiances[0])
-                    }
-                    else{
-                        houseURLs.push(' No allegiances')
-                    }
+                if(characterArray.length >= 2000)
+            })
+        }
 
-                    console.log(`Char array: ${characterArray}`);
-                    console.log(`House URL array: ${houseURLs}`);
+        // let p1 = new Promise((resolve, reject)=>{
+        //     // just testing with the first 25 pages
+        //     for(let i = 1;i < 25; i++)
+        //     {
+        //         $.get(`https://anapioficeandfire.com/api/characters/${i}`)
+        //         .done((api_chars)=>{
 
-                    let houseNames = houseURLs.map((houses)=>{
+        //             if(api_chars.name.length > 0)
+        //             {
+        //                 characterArray.push(api_chars.name)
+        //             }
+        //             else{
+        //                 characterArray.push(api_chars.aliases[0]);
+        //             }
+        //             if(api_chars.allegiances.length > 0)
+        //             {
+        //                 houseURLs.push(api_chars.allegiances[0])
+        //             }
+        //             else{
+        //                 houseURLs.push(' No allegiances')
+        //             }
 
-                        if(houses != ' No allegiances')
-                        {
-                            $.get(houses)
-                            .done(()=>{
-                                return houses.name;
-                            })
-                        }
-                        else{
-                            return ' No allegiances'
-                        }
+        //             console.log(`Char array: ${characterArray}`);
+        //             console.log(`House URL array: ${houseURLs}`);
 
-                        console.log(`houses: ${houses}`);
+        //             let houseNames = houseURLs.map((houses)=>{
 
-                    })
-                    console.log(houseNames);
-                })
-                .then(()=>{
-                    resolve("Success creating arrays.");
-                })
-            }
+        //                 if(houses != ' No allegiances')
+        //                 {
+        //                     $.get(houses)
+        //                     .done(()=>{
+        //                         return houses.name;
+        //                     })
+        //                 }
+        //                 else{
+        //                     return ' No allegiances'
+        //                 }
 
-        })
-        .then((characterArray, houseNames)=>{
+        //                 console.log(`houses: ${houses}`);
 
-            for(let i = 0;i < 24;i++)
-            {
-                $('ul').append(`<li class="cold col-4 mt-3">${characterArray[i]}: <button class="btn btn-dark">${houseNames[i]}</li>`);
-            }
-        })
+        //             })
+        //             console.log(houseNames);
+        //         })
+        //         .then(()=>{
+        //             resolve("Success creating arrays.");
+        //         })
+        //     }
+
+        // })
+        // .then((characterArray, houseNames)=>{
+
+        //     for(let i = 0;i < 24;i++)
+        //     {
+        //         $('ul').append(`<li class="cold col-4 mt-3">${characterArray[i]}: <button class="btn btn-dark">${houseNames[i]}</li>`);
+        //     }
+        // })
     
         // Promise.all([p1, p2])
         // .then((data)=>{
