@@ -1,24 +1,93 @@
 // start of jQuery
 $(()=>{
 
-    function getinfo(data)
+    let fetchArr = [];
+    let url  = '';
+
+    for(let page=0;page<44;page++)
     {
+        url = fetch('https://www.anapioficeandfire.com/api/characters?page=' +page +"&pageSize=50");
+        fetchArr.push(url);
+    }
 
-        let characterArray = [];
-        let houseURLs = [];
+    console.log(fetchArr);
 
-        for(let i = 0;i<= 50;i++)
-        {
-            $.get(`https://anapioficeandfire.com/api/characters?page=${i}&pageSize=50`)
-            .done((charList)=>{
-                characterArray.push(charList.name)
-            })
-            .done(()=>{
-                console.log(characterArray);
+    let promise = Promise.all(fetchArr)
 
-                if(characterArray.length >= 2000)
-            })
-        }
+    promise.then((resultsArr)=>{
+        
+        return Promise.all(resultsArr.map(char=>{
+            return char.json()
+        })) 
+    })
+    .then((dataArr)=>{
+        console.log(dataArr);
+
+        let charList = [];
+
+        dataArr.forEach((char)=>{
+            charList = [...charList,...char];
+        })
+
+        console.log(charList);
+        //dom manipulation here
+    })
+
+    // let apiCall1 = fetch('https://www.anapioficeandfire.com/api/characters?page=1&pageSize=50');
+    // let apiCall2 = fetch('https://www.anapioficeandfire.com/api/houses?page=1&pageSize=50');
+
+    // let promise = Promise.all([apiCall1, apiCall2]);
+
+    // promise.then((resultsArray)=>{
+    //     let results = [];
+    //     results[0] = resultsArray[0].json();
+    //     results[1] = resultsArray[1].json();
+
+    //     return Promise.all(results)
+    // })
+    // .then((dataArr)=>{
+    //     console.log(dataArr);
+
+    //     let charArray = [];
+
+
+    //     dataArr.forEach((char)=>{
+    //         charArray = [...charArray,...char];
+    //     })
+
+    //     // now it is 1 array of 100 elements
+    //     console.log(charArray);
+
+    //     //dom manipulation
+    // })
+
+    console.log("outside of promise");
+
+    //function getinfo(data)
+    //{
+
+        // let characterArray = [];
+        // let flag = false;
+        // //let houseURLs = [];
+
+        // for(let i = 0;i<= 50;i++)
+        // {
+        //     $.get(`https://anapioficeandfire.com/api/characters?page=${i}&pageSize=50`)
+        //     .done((charList)=>{
+        //         characterArray = [...characterArray,...charList]
+        //     })
+        //     .done(()=>{
+
+        //         if(characterArray.length >= 2130 && flag == false)
+        //         {
+        //             flag = true;
+        //             console.log(characterArray);
+        //             //dom manipulation
+        //         }
+        //     })
+        // }
+
+
 
         // let p1 = new Promise((resolve, reject)=>{
         //     // just testing with the first 25 pages
@@ -121,34 +190,34 @@ $(()=>{
         //         alert("Api character loading failed.");
         //     })
         // } //end for loop
-    } // end of getinfo function
+    //} // end of getinfo function
 
-    function getHouseInfo(char_index)
-    {
-        $.get(`https://anapioficeandfire.com/api/characters/${char_index+1}`)
-            .done((character)=>{
-                $.get(character.allegiances[0])
-                .done((houses)=>{
-                    if(character.allegiances.length > 0)
-                    {
-                        $('li')[char_index].append(`Region: ${houses.region}`)
-                    }
-                    else if(character.allegiances.length == 0)
-                    {
-                        $('li')[char_index].append(`No allegiances.`)
-                    }
-                })
-                .fail(()=>{
-                    alert("Api house loading failed.");
-                })
-            })
-            .fail(()=>{
-                alert("Api character loading failed.");
-            })
+    // function getHouseInfo(char_index)
+    // {
+    //     $.get(`https://anapioficeandfire.com/api/characters/${char_index+1}`)
+    //         .done((character)=>{
+    //             $.get(character.allegiances[0])
+    //             .done((houses)=>{
+    //                 if(character.allegiances.length > 0)
+    //                 {
+    //                     $('li')[char_index].append(`Region: ${houses.region}`)
+    //                 }
+    //                 else if(character.allegiances.length == 0)
+    //                 {
+    //                     $('li')[char_index].append(`No allegiances.`)
+    //                 }
+    //             })
+    //             .fail(()=>{
+    //                 alert("Api house loading failed.");
+    //             })
+    //         })
+    //         .fail(()=>{
+    //             alert("Api character loading failed.");
+    //         })
 
-    } //end of getHouseInfo
+    // } //end of getHouseInfo
 
-    getinfo()
+    // getinfo()
 
     // $('ul').on('click','li',(e)=>{
     //     var listItem = (e.target.parentNode)
