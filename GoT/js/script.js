@@ -1,100 +1,120 @@
 // start of jQuery
 
-//recursion method
-let pageNums = 0;
-function getNames(pageNums)
-{
-    
-    getNames()
-}
+
+
+
 
 $(()=>{
 
-    let fetchArr = [];
-    let url  = '';
+    //recursion method
+    let pageNum = 1;
 
-    for(let page=0;page<44;page++)
+    function getNames(pageNum)
     {
-        url = fetch('https://www.anapioficeandfire.com/api/characters?page=' +page +"&pageSize=50");
-        fetchArr.push(url);
+        $.get('https://www.anapioficeandfire.com/api/characters?page=' +pageNum +'&pageSize=50')
+        .done((response)=>{
+
+            if(response.length > 0)
+            {
+                pageNum += 1;
+                getNames(pageNum);
+            }
+            else
+            {
+                //dom manipulation
+            }
+        })
     }
 
-    let promise = Promise.all(fetchArr)
+    getNames(pageNum);
 
-    promise.then((resultsArr)=>{
+    console.log(`Im done ${pageNum}`);
+// underneath here is the finished copy using promise all
+    // let fetchArr = [];
+    // let url  = '';
+
+    // for(let page=0;page<44;page++)
+    // {
+    //     url = fetch('https://www.anapioficeandfire.com/api/characters?page=' +page +"&pageSize=50");
+    //     fetchArr.push(url);
+    // }
+
+    // let promise = Promise.all(fetchArr)
+
+    // promise.then((resultsArr)=>{
         
-        return Promise.all(resultsArr.map(char=>{
-            return char.json()
-        })) 
-    })
-    .then((dataArr)=>{
+    //     return Promise.all(resultsArr.map(char=>{
+    //         return char.json()
+    //     })) 
+    // })
+    // .then((dataArr)=>{
 
-        let charList = [];
+    //     let charList = [];
 
-        dataArr.forEach((char)=>{
-            charList = [...charList,...char];
-        })
+    //     dataArr.forEach((char)=>{
+    //         charList = [...charList,...char];
+    //     })
 
-        //dom manipulation here
-        let $listGroupContainer = $('.list-group')
-        let liTags = charList.map((char)=>{
+    //     //dom manipulation here
+    //     let $listGroupContainer = $('.list-group')
+    //     let liTags = charList.map((char)=>{
 
-            if(char.allegiances.length > 0 && char.name.length > 0)
-            {
-                return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.name} -- Allegiances: <b>${char.allegiances.length}</b></a>`
-            }
-            else if(char.allegiances.length > 0 && char.name.length == 0)
-            {
-                return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.aliases[0]} -- Allegiances: <b>${char.allegiances.length}</b></a>`
-            }
-            else if(char.allegiances.length == 0 && char.name.length == 0)
-            {
-                return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.aliases[0]} - <b>No Allegiances</b></a>`
-            }
-            else if(char.allegiances.length == 0 && char.name.length > 0)
-            {
-                return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.name} - <b>No Allegiances</b></a>`
-            }
+    //         if(char.allegiances.length > 0 && char.name.length > 0)
+    //         {
+    //             return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.name} -- Allegiances: <b>${char.allegiances.length}</b></a>`
+    //         }
+    //         else if(char.allegiances.length > 0 && char.name.length == 0)
+    //         {
+    //             return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.aliases[0]} -- Allegiances: <b>${char.allegiances.length}</b></a>`
+    //         }
+    //         else if(char.allegiances.length == 0 && char.name.length == 0)
+    //         {
+    //             return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.aliases[0]} - <b>No Allegiances</b></a>`
+    //         }
+    //         else if(char.allegiances.length == 0 && char.name.length > 0)
+    //         {
+    //             return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.name} - <b>No Allegiances</b></a>`
+    //         }
 
-        })
+    //     })
 
-        $listGroupContainer.html(liTags.join(''))
-    })
+    //     $listGroupContainer.html(liTags.join(''))
+    // })
 
 
-    //click event
-    let $div = $('.list-group')
+    // //click event
+    // let $div = $('.list-group')
 
-    $div.click((e)=>{
-        e.preventDefault();
+    // $div.click((e)=>{
+    //     e.preventDefault();
 
-        $.get(e.target.href)
-        .done((detailedCharObj)=>{
+    //     $.get(e.target.href)
+    //     .done((detailedCharObj)=>{
 
-            let $modalBody = $('.modal-body');
-            let $modalTitle = $('.modal-title');
+    //         let $modalBody = $('.modal-body');
+    //         let $modalTitle = $('.modal-title');
 
-            $modalBody.html('')
+    //         $modalBody.html('')
 
-            $modalTitle.html(detailedCharObj.name)
+    //         $modalTitle.html(detailedCharObj.name)
 
-            if(detailedCharObj.allegiances.length > 0)
-            {
-                detailedCharObj.allegiances.forEach((houseUrl)=>{
-                    $.get(houseUrl)
-                    .done((houseObj)=>{
-                        //console.log(houseObj.name);
-                        $modalBody.html(`<br>${$modalBody.html()}<br>${houseObj.name}`)
+    //         if(detailedCharObj.allegiances.length > 0)
+    //         {
+    //             detailedCharObj.allegiances.forEach((houseUrl)=>{
+    //                 $.get(houseUrl)
+    //                 .done((houseObj)=>{
+    //                     //console.log(houseObj.name);
+    //                     $modalBody.html(`<br>${$modalBody.html()}<br>${houseObj.name}`)
                         
-                    })
-                })
+    //                 })
+    //             })
                 
-            }
+    //         }
 
-            $('#exampleModal').modal('show')
+    //         $('#exampleModal').modal('show')
 
-        }) 
+    //     }) 
 
-    })
+    // })
 
 }); //end of JQuery
