@@ -1,4 +1,13 @@
 // start of jQuery
+
+//recursion method
+let pageNums = 0;
+function getNames(pageNums)
+{
+    
+    getNames()
+}
+
 $(()=>{
 
     let fetchArr = [];
@@ -29,8 +38,26 @@ $(()=>{
         //dom manipulation here
         let $listGroupContainer = $('.list-group')
         let liTags = charList.map((char)=>{
-            return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.name} <b>${char.allegiances.length}</b></a>`
+
+            if(char.allegiances.length > 0 && char.name.length > 0)
+            {
+                return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.name} -- Allegiances: <b>${char.allegiances.length}</b></a>`
+            }
+            else if(char.allegiances.length > 0 && char.name.length == 0)
+            {
+                return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.aliases[0]} -- Allegiances: <b>${char.allegiances.length}</b></a>`
+            }
+            else if(char.allegiances.length == 0 && char.name.length == 0)
+            {
+                return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.aliases[0]} - <b>No Allegiances</b></a>`
+            }
+            else if(char.allegiances.length == 0 && char.name.length > 0)
+            {
+                return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.name} - <b>No Allegiances</b></a>`
+            }
+
         })
+
         $listGroupContainer.html(liTags.join(''))
     })
 
@@ -63,6 +90,7 @@ $(()=>{
                 })
                 
             }
+
             $('#exampleModal').modal('show')
 
         }) 
