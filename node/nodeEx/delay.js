@@ -11,9 +11,17 @@ var subtract = ((x,y)=>{
     return result;
 })
 
+var calc = (x,y,operation) => {
+    return operation(x,y);
+}
+
 var greeting = ((person)=>{
     return `Hola ${person}!`
 })
+
+var hello = (person, greeting) => {
+    return greeting(person);
+}
 
 var product = ((numbers)=>{
     return numbers.reduce((a,b)=>{
@@ -21,14 +29,20 @@ var product = ((numbers)=>{
     },1)
 })
 
+
 var nums = [5,4];
+
+var mult = (numbers, product) =>{
+    return product(numbers);
+}
+
 
 //adding 1 second delay
 
 setTimeout(()=>{
-    console.log(add(5,4))
-    console.log(subtract(5,4))
-    console.log(greeting('micah'))
-    console.log(product(nums))
+    console.log(calc(5,4,add))
+    console.log(calc(5,4,subtract))
+    console.log(hello('micah',greeting))
+    console.log(mult(nums, product))
 },1000)
 
