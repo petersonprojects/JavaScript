@@ -9,7 +9,7 @@ const rl = readline.createInterface({
 
 rl.question("Name of file: ", (fileName)=>{
 
-    let temp = `../${fileName}`
+    let temp = `./${fileName}`
     fs.readFile(temp, (error, buffer) => {
 
         if(error)
