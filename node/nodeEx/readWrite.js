@@ -13,6 +13,7 @@ rl.question("Input file: ", (inputFile)=>{
 
         let read = `./${inputFile}`
         let write = `./${outputFile}`
+
         fs.readFile(read, (error, buffer) => {
     
             if(error)
@@ -20,10 +21,20 @@ rl.question("Input file: ", (inputFile)=>{
                 console.log(error);
                 return;
             }
-    
-            return buffer.toString().toUpperCase();
+            
+            let output = buffer.toString().toUpperCase();
+
+            fs.writeFile(write, output,(error)=>{
+                if(error)
+                {
+                    console.log(error);
+                }
+                console.log(`Content from ${read} written to ${write}!`)
+                console.log(`${write} should now contain ${output}`);
+            });
     
         });
+
         rl.close();
     });
 
