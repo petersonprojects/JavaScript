@@ -1,13 +1,8 @@
 // start of jQuery
-
-
-
-
-
 $(()=>{
 
     //recursion method of getting api data
-    let pageNum = 1;
+    let pageNum = 0;
 
     function getNames(pageNum)
     {
@@ -29,6 +24,7 @@ $(()=>{
     getNames(pageNum);
 
     console.log(`Im done ${pageNum}`);
+
 // underneath here is the finished copy using promise all
     // let fetchArr = [];
     // let url  = '';
