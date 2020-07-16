@@ -28,6 +28,7 @@ rl.question("Input file: ", (inputFile)=>{
                 if(error)
                 {
                     console.log(error);
+                    return;
                 }
                 console.log(`Content from ${read} written to ${write}!`)
                 console.log(`${write} should now contain ${output}`);

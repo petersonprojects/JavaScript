@@ -26,7 +26,7 @@ var hello = (person, greeting) => {
 var product = ((numbers)=>{
     return numbers.reduce((a,b)=>{
         return a*b;
-    },1)
+    })
 })
 
 
