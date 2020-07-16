@@ -1,7 +1,7 @@
 
 const request = require('request');
 const fs = require('fs')
-const gm = require('gm').subClass({imageMagick: true});
+const gm = require('gm')
 
 var options = {
     url: 'https://raw.githubusercontent.com/voodootikigod/logo.js/master/js.png',
