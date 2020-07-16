@@ -1,17 +1,18 @@
 
 const express = require('express');
-
-const app = express();
-
 const axios = require('axios');
 
+const app = express();
 app.use(express.static('public'))
 
 //home page
 app.get('/',(req,res)=>{
     res.send(`
+
     <link rel="stylesheet" href="styles.css">
-    <h1 class="bg-tomato">Hello World!</h1>`)
+    <h1 class="bg-tomato">Hello World!</h1>
+
+    `)
 });
 
 app.get('/greeting.html',(req,res)=>{
@@ -19,6 +20,7 @@ app.get('/greeting.html',(req,res)=>{
 });
 
 app.get('/api', (req,res) => {
+    
     axios.get('https://corona.lmao.ninja/v2/states')
     .then((response)=>{
         console.log(response);
@@ -76,7 +78,6 @@ let data =
         }
     ];
 
-
 app.get('/data/:id', (req,res) => {
 
     let index = parseInt(req.params.id) - 1;
@@ -85,9 +86,7 @@ app.get('/data/:id', (req,res) => {
     console.log(url);
     res.send(`Name: ${name} <img src="${url}"/>`);
 
-
 });
-
 
 // choose a port on your network card to listen to
 app.listen(3005, ()=>{
