@@ -1,23 +1,24 @@
 
+function printAsManyStarsAsLength(string)
+{
+    for(var x = 0; x < string.length; x++)
+    {
+        process.stdout.write("*");
+    }
+}
 
 function makeBanner(string)
 {
-    for(var x=0;x<string.length;x++)
-    {
-        process.stdout.write("*");
-    }
-    process.stdout.write("****");
-    console.log("");
-    process.stdout.write("* " +string +" *");
-    console.log("");
+    printAsManyStarsAsLength(string);
 
-    for(var x=0;x<string.length;x++)
-    {
-        process.stdout.write("*");
-    }
+    console.log("****");
+
+    console.log("* " +string +" *");
+
+    printAsManyStarsAsLength(string);
     
-    process.stdout.write("****");
-    console.log("");
+    console.log("****");
+
 }
 
-makeBanner("Easy banner");
+makeBanner("super long banner used for testing");

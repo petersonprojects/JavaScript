@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     
@@ -19,13 +20,13 @@
         <% for( let index = 0; index < pic.length; index++ ) { %>
             <img src="<%= pic[index] %>"  height="300px" width="600px" alt="firstPic">
         <% } %>
-        
+
     <% } %>
 
     <% if (names.length > 0) { %>
         
         <% for( let index = 0; index < names.length; index++ ) { %>
-            <h2> <%= names[index] %>  </h2>
+            <h2 class="highlight"> <%= names[index] %>  </h2>
         <% } %>
 
     <% } %>
@@ -33,7 +34,7 @@
     <% if (cities.length > 0) { %>
         
         <% for( let index = 0; index < (cities.length)-2; index++ ) { %>
-            <h2> <%= cities[index] %>  </h2>
+            <h1> <%= cities[index] %>  </h1>
         <% } %>
 
     <% } %>
