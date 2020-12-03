@@ -22,3 +22,4 @@ function makeBanner(string)
 }
 
 makeBanner("super long banner used for testing");
+
