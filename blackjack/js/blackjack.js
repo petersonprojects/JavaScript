@@ -164,17 +164,20 @@ $(document).ready(function(){
     var input = Number(document.getElementById('inputBet').value);
 
 
+    // if their bet is less than their pot size
     if(current_pot >= input)
     {
       current_pot = current_pot - input;
       $('#pot').text(current_pot);
     }
 
+    // if their bet is greater than their pot size
     else if(input > current_pot)
     {
       input = current_pot;
       current_pot = 0;
       $('#pot').text(current_pot);
+      $('#inputBet').val(input);
     }
     
     return input;
@@ -182,24 +185,24 @@ $(document).ready(function(){
 
   function winBet()
   {
-    var dollars = Number(document.getElementById('pot').innerText);
-    var temp = Number(document.getElementById('inputBet').value);
-    dollars = dollars + (temp*2);
+    let dollars = Number(document.getElementById('pot').innerText);
+    let temp = Number(document.getElementById('inputBet').value);
+    dollars = dollars + temp*2;
     $('#pot').text(dollars);
     return temp;
   }
   function draw()
   {
-    var dollars = Number(document.getElementById('pot').innerText);
-    var temp = Number(document.getElementById('inputBet').value);
+    let dollars = Number(document.getElementById('pot').innerText);
+    let temp = Number(document.getElementById('inputBet').value);
     dollars = dollars + temp;
     $('#pot').text(dollars);
   }
   function winBJ()
   {
-    var dollars = Number(document.getElementById('pot').innerText);
-    var temp = Number(document.getElementById('inputBet').value);
-    var amtWon = (temp*2)*1.5;
+    let dollars = Number(document.getElementById('pot').innerText);
+    let temp = Number(document.getElementById('inputBet').value);
+    let amtWon = temp + temp*1.5;
     dollars = dollars + amtWon
     $('#pot').text(dollars);
     return temp*1.5;
@@ -226,20 +229,14 @@ $(document).ready(function(){
 
   $("#place-bet").click(function()
   {
-      var amt = placeBet();
-      if(amt > 100)
-      {
-        $('#messages').show();
-        $('#messages').text('Try less.');
-      }
-      else{
+
+        var amt = placeBet();
         $('#place-bet').hide();
         $("#inputBet").hide();
         $('#messages').show();
 
         $('#messages').text(`Risk ${amt}?`);
         $('#deal-button').show();
-      }
 
   });
     
@@ -288,18 +285,18 @@ $(document).ready(function(){
       gameOver();
     }
 
-        // both dealer and player getting blackjack
-        if(calculatePoints(dealerHand) == 21 && dealerHand.length==2 && calculatePoints(playerHand) == 21 && playerHand.length==2)
-        {
-          $('#messages').show();
-          $('#messages').text('What are the odds? Push');
-          dh.appendChild(img2);
-          dh.removeChild(img1);
-          updateScore();
-          gameOver();
-        }
+    // both dealer and player getting blackjack
+    if(calculatePoints(dealerHand) == 21 && dealerHand.length==2 && calculatePoints(playerHand) == 21 && playerHand.length==2)
+    {
+      $('#messages').show();
+      $('#messages').text('What are the odds? Push');
+      dh.appendChild(img2);
+      dh.removeChild(img1);
+      updateScore();
+      gameOver();
+    }
     
-        $("#deal-button").hide();
+      $("#deal-button").hide();
   });
 
   $("#hit-button").click(function()
@@ -321,12 +318,13 @@ $(document).ready(function(){
       //shows dealers first card and removes card back
       dh.appendChild(img2);
       dh.removeChild(img1);
-    
+
+      // dealer will keep hitting until he has more than 17
       while (calculatePoints(dealerHand) < 17) {
         dealACardDealer(dealerHand, imgUrls);
         imgUrls.shift();
       }
-    
+
       // check for bust
       if (calculatePoints(dealerHand) > 21) {
         var winnings = winBet();
@@ -343,14 +341,14 @@ $(document).ready(function(){
         // determine winner
         var dealerPoints = calculatePoints(dealerHand);
         var playerPoints = calculatePoints(playerHand);
-        var winner = '';
+        let winner = '';
         if (dealerPoints > playerPoints) 
         {
           winner = `Dealer wins`
         } 
         else if (dealerPoints < playerPoints) 
         {
-          var winnings = winBet();
+          let winnings = winBet();
           winner = `You win! +${winnings}`;
         } 
         else 
