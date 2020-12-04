@@ -2,6 +2,7 @@
 function posNums(numArray)
 {
     var tempList = [];
+    
     for(var x = 0; x<numArray.length;x++)
     {
         if(numArray[x] > 0)
