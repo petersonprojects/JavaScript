@@ -5,7 +5,7 @@ var cities = [
     { name: 'New York', temperature: 80.0 } ];
 
 var cold_city = cities.filter(function(cityObj){
-        return cityObj.temperature < 70;
-    });
+    return cityObj.temperature < 70;
+});
 
 console.log(cold_city);

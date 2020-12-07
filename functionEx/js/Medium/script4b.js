@@ -4,7 +4,10 @@ var cities = [
     { name: 'Detroit', temperature: 48.0 },
     { name: 'New York', temperature: 80.0 } ];
 
-    cities.forEach(function(cityObj){
-        console.log(cityObj.name);
-    })
+var cityNames = cities.map(cityObj => {
+
+    return cityObj.name
+})
+
+console.log(cityNames)
 
