@@ -8,10 +8,10 @@ let fun = () => {
 }
 
 
-function call3Times(fun) {
-    fun(); 
-    fun(); 
-    fun();
+function call3Times(hai) {
+    hai(); 
+    hai(); 
+    hai();
 }
 
 call3Times(fun);

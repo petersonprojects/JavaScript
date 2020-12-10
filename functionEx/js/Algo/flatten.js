@@ -1,24 +1,26 @@
 
 
 // Without using .flat(), create a function to flatten an array 
-const exampleArray = [1,2,[3,4,[5,6,7, [69,70,71, [30,40,50, [99,100,111]]]], 8], 9, 10]
+
+const exampleArray = [1, 2,[3,4,[5,6,7], 8], 9, 10]
 
 
-function accumulator(a, b){
+function reducer(a, b){
     
     if(Array.isArray(b))
     {
-        return a.concat(b.reduce(accumulator, []))
+        return a.concat(b.reduce(reducer, []))
     }
     
     return a.concat(b)
 }
 
 function flatten(array){
-    return array.reduce(accumulator, [])
+    return array.reduce(reducer, [])
 }
 
 
+// the array given can be infinitely deep
 let result = flatten(exampleArray)
 
 console.log(result)

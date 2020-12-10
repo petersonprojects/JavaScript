@@ -8,7 +8,7 @@ let sum = (array) => {
 
 }
 
-let example = [0, 1, 2, 3, 4]
+let example = [0, 1, 2, 3, 4];
 
 let result = sum(example)
 

@@ -10,6 +10,7 @@ $(document).ready(function(){
   var img2 = document.createElement('img');
   //create a new deck of card objects organized just how you buy them
   //gets starting pot from HTML
+
   function newDeck()
   {
     var cards = [];
@@ -25,14 +26,14 @@ $(document).ready(function(){
   // shuffle the deck by swapping random positions with random other elements 52 times
   function shuffleDeck(deck) 
   {
-      for (var i = deck.length - 1; i > 0; i--) 
+      for (var i = deck.length - 1; i >= 0; i--) 
       {
-        //random position of who to switch with
           var j = Math.floor(Math.random() * (i + 1));
-          // swaps the first or the old value with the next one in the deck
+          // temp variable to save deck[i]
           var temp = deck[i];
+
+          // where the actual swapping occurs
           deck[i] = deck[j];
-          //saves the other swapped value
           deck[j] = temp;
       }
       return deck;
@@ -67,7 +68,6 @@ $(document).ready(function(){
       {
           temp = 'K'
       }
-
       return `JPEG/${temp}${deckObj.suit[0].toUpperCase()}.jpg`
     });
   }
@@ -84,6 +84,7 @@ $(document).ready(function(){
 
   function calculatePoints(cards)
   {
+    // gives us a new array without modifying the old one... i beleive same thing can be done with spread operator
     cards = cards.slice(0);
     // puts cards in order smallest to largest value
     cards.sort(function(a, b) {
@@ -95,7 +96,7 @@ $(document).ready(function(){
     // meaning the first card in the hand list
     // and the first parameter is the "accumulator"
     return cards.reduce(function(sum, cards) {
-      var value = cards.value;
+      let value = cards.value;
 
       if (value > 10) {
         value = 10;
@@ -146,15 +147,16 @@ $(document).ready(function(){
   //calculates new set of points during deal hit and stand phase
   function updateScore()
   {
-    var dealerPoints = calculatePoints(dealerHand);
+    let dealerPoints = calculatePoints(dealerHand);
     $('#dealer-points').text(dealerPoints);
-    var playerPoints = calculatePoints(playerHand);
+    let playerPoints = calculatePoints(playerHand);
     $('#player-points').text(playerPoints);
   }
+
   // used for only the hit button so the dealers points are still hidden
   function updatePlayerScore()
   {
-    var playerPoints = calculatePoints(playerHand);
+    let playerPoints = calculatePoints(playerHand);
     $('#player-points').text(playerPoints);
   }
 
