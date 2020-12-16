@@ -46,7 +46,7 @@ $(()=>{
         }))
     })
     .then(dataArr=>{
-
+        console.log(dataArr)
         // dataArr is now an array of 44 Arrays (which contain the 50 (pageSize) character results in each Array)
         let charList = [];
 

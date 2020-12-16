@@ -102,7 +102,7 @@ $(document).ready(function(){
         value = 10;
       }
       //determining ace value
-      if (value === 1 && sum < 11) {
+      if(value === 1 && sum < 11) {
         value = 11;
       }
 
