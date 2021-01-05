@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Hello
+
+    <ul>
+
+    </ul>
+
+    <div></div>
+
+    <button id="myButton">Click Me</button>
+    <script>
+
+        let button = document.querySelector('#myButton');
+
+        button.addEventListener('click', ()=>{
+
+            // call out to my own api
+            fetch('http://localhost:3000/data')
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                // array of objects
+
+                let names = data.map(obj => {
+                    return `<li>${obj.firstName} ${obj.lastName}</li>`
+                })
+
+                // names is now an array of li tag strings
+
+                // grab my ul
+                let ul = document.querySelector('ul');
+
+                // append names to the ul
+                ul.innerHTML = names.join('')
+
+            })
+        })
+
+
+    </script>
+</body>
+</html>
