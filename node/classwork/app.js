@@ -12,10 +12,12 @@ app.use(require('./routes/index'));
 app.use(require('./routes/aboutus'));
 app.use(require('./routes/faq'));
 
-app.get('*', (req,res)=>{
+//catch all for routes
+
+app.get('*', (req, res) => {
     res.send(`You've reached an error.`);
 });
 
-app.listen(PORT,()=>{
+app.listen(PORT,() => {
     console.log(`Listening on port ${PORT}...`);
 });

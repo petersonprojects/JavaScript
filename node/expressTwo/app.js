@@ -18,6 +18,18 @@ app.get('/photo?:img',(req,res)=>{
     res.send(`<img src="${req.query.images}">`)
 })
 
+app.use(require('./routes/index'))
+
+
+
+
+
+
+
+//
+
+module.exports = router;
+
 
 // contact?name=Micah&lname=Peterson
 // app.get('/contact',(req,res)=>{

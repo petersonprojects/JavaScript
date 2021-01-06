@@ -11,7 +11,7 @@ const rl = readline.createInterface({
 rl.question("URL: ", (url)=>{
     rl.question("File to save: ",(outputFile)=>{
         let read = url;
-        let write = `./${outputFile}`
+        let write = `./${outputFile}`;
 
         request.get(read, (error, response, html) => {
     
@@ -22,8 +22,7 @@ rl.question("URL: ", (url)=>{
             }
             
             let output = html;
-            console.log(html);
-
+            
             fs.writeFile(write, output,(error)=>{
                 if(error)
                 {
