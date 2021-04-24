@@ -18,6 +18,6 @@ app.get('*', (req, res) => {
     res.send(`You've reached an error.`);
 });
 
-app.listen(PORT,() => {
+app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}...`);
 });

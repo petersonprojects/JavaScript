@@ -31,8 +31,8 @@ const numberNOfOccurences = (array, n) => {
 
 }
 
-let myArray = [10,10,1,1,5,5,20,20,20,20];
+let myArray = [17,10,1,1,5,5,20,20,20,20];
 
-let answer = numberNOfOccurences(myArray, 2)
+let answer = numberNOfOccurences(myArray, 1);
 
 console.log(answer)

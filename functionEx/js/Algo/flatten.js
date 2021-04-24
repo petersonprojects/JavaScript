@@ -2,7 +2,7 @@
 
 // Without using .flat(), create a function to flatten an array 
 
-const exampleArray = [1, 2,[3,4,[5,6,7], 8], 9, 10]
+const exampleArray = [1, 2,[3,4,[5,6,7], 8], 9, 10];
 
 
 function reducer(a, b){
@@ -19,8 +19,6 @@ function flatten(array){
     return array.reduce(reducer, [])
 }
 
-
-// the array given can be infinitely deep
 let result = flatten(exampleArray)
 
 console.log(result)

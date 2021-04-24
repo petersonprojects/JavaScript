@@ -54,14 +54,13 @@ $(()=>{
             // char is in the form [ {}, {}, {} ]
             // allows us to destructure the arrays and just copy what's inside into massive charList array
             charList = [...charList, ...char];
-
         })
 
         console.log(charList);
         // at this point, charList is now an array of objects
-
+        
         //dom manipulation here
-        let $listGroupContainer = $('.list-group')
+        let $listGroupContainer = $('.list-group');
         let liTags = charList.map(char => {
 
             // checks to figure out what to dispaly if they dont have a name or allegiance
@@ -117,7 +116,6 @@ $(()=>{
                         // puts the previous html there and adds whatever name comes after
                         $modalBody.html(`
                             ${$modalBody.html()}<br>${houseObj.name}
-
                         `)
                         
                     })
