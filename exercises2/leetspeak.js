@@ -1,9 +1,9 @@
 
 function makeLeet(string)
 {
-    var splitUp = string.split('');
+    let splitUp = string.split('');
 
-    for(var x = 0; x<splitUp.length;x++)
+    for(let x = 0; x<splitUp.length;x++)
     {
         if(splitUp[x] == 'a' || splitUp[x] == 'A')
         {
@@ -34,7 +34,7 @@ function makeLeet(string)
             splitUp[x] = '7';
         }
     }
-    var newArray = splitUp.join('');
+    let newArray = splitUp.join('');
     return newArray;
 }
 

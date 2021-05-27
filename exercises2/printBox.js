@@ -1,32 +1,28 @@
 
-function printSquare(size)
+function printBox(width, height)
 {
-    var count = size;
+    let count = height;
     
     while(count > 0)
     {
-
-        if(count == 1)
+        // special case for first and last line
+        if(count == 1 || count == height)
         {
-            for(var x = 1;x <= size; x++)
+            for(let x = 1;x <= width; x++)
             {
                 process.stdout.write("*");
             }
         }
-        else if(count == size)
-        {
-            for(var x = 1;x <= size; x++)
-            {
-                process.stdout.write("*");
-            }
-        }
+        // else its one of the line in between that has spaces
         else
         {
             process.stdout.write("*");
-            for(var x = 2;x <= size-1; x++)
+
+            for(let x = 2;x <= width-1; x++)
             {
                 process.stdout.write(" ");
             }
+
             process.stdout.write("*");
         }
         
@@ -36,4 +32,4 @@ function printSquare(size)
 }
 
 
-printSquare(10);
+printBox(7,10);

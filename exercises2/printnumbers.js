@@ -1,7 +1,7 @@
 
 function printNums(num1,num2)
 {
-    for(var x = num1;x <= num2; x++)
+    for(let x = num1;x <= num2; x++)
     {
         console.log(x);
     }
@@ -9,7 +9,7 @@ function printNums(num1,num2)
 
 function printNums2(num1,num2)
 {
-    var count = num1;
+    let count = num1;
     while(count <= num2)
     {
         console.log(count);
