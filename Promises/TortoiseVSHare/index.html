@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tortoise vs Hare</title>
+</head>
+<body>
+    <h1>Tortoise VS Hare</h1>
+
+    <div>Tortoise: <span id="tortTime">racing...</span></div>
+    <div>Hare: <span id="hareTime">racing...</span></div>
+    <div id="winner"></div>
+
+    <script>
+        // tortoise promise
+
+        let tortoise = new Promise((resolve, reject) => {
+
+            // random int between 1 & 10
+            const rndInt = Math.floor(Math.random() * 10) + 1
+            console.log(rndInt)
+
+            setTimeout(()=> {
+
+                // this callback executes after random int * 1000 millisecs
+                let tortTime = document.getElementById('tortTime')
+                tortTime.innerHTML = `${rndInt} seconds`;
+                resolve(rndInt)
+
+            }, rndInt * 1000)
+
+        })
+
+        let hare = new Promise((resolve, reject) => {
+
+            const rndInt = Math.floor(Math.random() * 10) + 1
+            console.log(rndInt)
+
+            
+            setTimeout(()=> {
+                // this callback executes after random int * 1000 millisecs
+                let hareTime = document.getElementById('hareTime')
+                hareTime.innerHTML = `${rndInt} seconds`;
+                resolve(rndInt)
+            }, rndInt * 1000)
+        })
+
+        // Promise.all receives an array of promises... once all
+        // the promises resolved, the first ".then" executes its body
+        // in this case... once the race is complete lets determine who won
+        Promise.all([tortoise, hare]).then(value => {
+
+            let winner = document.getElementById('winner')
+
+            // t and h represent just the number (as a string) from the span
+            // without [0] they would be a string "x seconds"
+            let t = document.getElementById('tortTime').innerText[0]
+            let h = document.getElementById('hareTime').innerText[0]
+
+            // determine winner
+
+            // notice how JS allows us to compare these strings like
+            // they're numbers ... its whatever 
+            if(t < h)
+            {
+                winner.innerHTML = "<h1>Tortoise Wins!</h1>"
+            }
+            else if(t > h)
+            {
+                winner.innerHTML = "<h1>Hare Wins!</h1>"
+            }
+            else
+            {
+                winner.innerHTML = "<h1>It's a tie!</h1>"
+            }
+        })
+
+    </script>
+    
+</body>
+</html>

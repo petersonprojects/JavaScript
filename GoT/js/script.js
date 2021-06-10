@@ -1,30 +1,6 @@
 // start of jQuery
 $(()=>{
 
-    // recursion method of getting api data
-    // let pageNum = 0;
-
-    // function getNames(pageNum)
-    // {
-    //     $.get('https://www.anapioficeandfire.com/api/characters?page=' +pageNum +'&pageSize=50')
-    //     .done((response)=>{
-
-    //         if(response.length > 0)
-    //         {
-    //             pageNum += 1;
-    //             getNames(pageNum);
-    //         }
-    //         else
-    //         {
-    //             //dom manipulation
-    //         }
-    //     })
-    // }
-
-    // getNames(pageNum);
-
-    // console.log(`Im done ${pageNum}`);
-
     let fetchArr = [];
     let url;
 
@@ -63,7 +39,7 @@ $(()=>{
         let $listGroupContainer = $('.list-group');
         let liTags = charList.map(char => {
 
-            // checks to figure out what to dispaly if they dont have a name or allegiance
+            // checks to figure out what to display if they dont have a name or allegiance
             if(char.name.length > 0)
             {
                 return `<a href="${char.url}" class="list-group-item list-group-item-action">${char.name} -- Allegiances: <b>${char.allegiances.length}</b></a>`
@@ -90,7 +66,7 @@ $(()=>{
         e.preventDefault();
 
         $.get(e.target.href) // res => res.json() conversion is already taken care of in $.get
-        .done(detailedCharObj => { 
+        .done(detailedCharObj => {
 
             let $modalBody = $('.modal-body');
             let $modalTitle = $('.modal-title');
