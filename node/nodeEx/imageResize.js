@@ -13,6 +13,7 @@ request(options, (error, response, imageData)=>{
     let fileToWrite = 'image.png';
 
     fs.writeFile(fileToWrite, imageData,(error)=>{
+        
         if(error)
         {
             console.log(error);
